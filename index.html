@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yakeen NEET Gujarati 2026</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🎯</span>
+        <div>
+          <div class="logo-title">Yakeen NEET</div>
+          <div class="logo-sub">Gujarati 2026</div>
+        </div>
+      </div>
+      <div class="header-stats" id="headerStats"></div>
+    </div>
+  </header>
+
+  <!-- SUBJECT TABS -->
+  <nav class="subject-nav" id="subjectNav"></nav>
+
+  <!-- SEARCH BAR -->
+  <div class="search-wrap">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Chapter શોધો... (e.g. Gravitation, Genetics)" autocomplete="off"/>
+      <button class="clear-btn" id="clearSearch" style="display:none">✕</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main id="mainContent">
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loader"></div>
+      <p>Content લોડ થઈ રહ્યો છે...</p>
+    </div>
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay" style="display:none">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle"></h2>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <div class="modal-tabs" id="modalTabs"></div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
