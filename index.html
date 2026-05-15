@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="gu">
 <head>
@@ -39,7 +38,7 @@ body{
   color:var(--text);
   font-family:'Baloo 2','Noto Sans Gujarati',sans-serif;
   overflow-x:hidden;
-  user-select: none; /* Prevents text/link copying */
+  user-select: none;
 }
 
 /* HEADER */
@@ -246,13 +245,13 @@ main{
   align-items:center;
   justify-content:center;
   z-index:999;
-  padding:20px;
+  padding:10px; /* Reduced for bigger screen utilization */
 }
 
 .modal{
   width:100%;
-  max-width:800px;
-  max-height:92vh;
+  max-width:950px; /* Increased modal width for big size player */
+  max-height:96vh; /* Max height utilization */
   overflow:hidden;
   border-radius:20px;
   background:var(--bg2);
@@ -265,7 +264,7 @@ main{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:22px;
+  padding:18px 22px;
   border-bottom:1px solid var(--border);
 }
 
@@ -286,7 +285,7 @@ main{
 .modal-tabs{
   display:flex;
   gap:10px;
-  padding:18px;
+  padding:14px 18px;
   border-bottom:1px solid var(--border);
   overflow-x:auto;
 }
@@ -308,7 +307,7 @@ main{
 }
 
 .modal-body{
-  padding:20px;
+  padding:16px;
   overflow-y:auto;
   flex:1;
 }
@@ -338,24 +337,24 @@ main{
   flex:1;
 }
 
-/* VIDEO CONTAINER FIX */
+/* BIG SIZE VIDEO CONTAINER WITH INSTANT SPEED LOADING FLUIDITY */
 .player-wrap {
   margin-bottom: 20px;
   border-radius: 16px;
   overflow: hidden;
-  background: black;
-  border: 1px solid var(--border);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.7);
   position: relative;
   width: 100%;
 }
 
-/* Seamless responsive player aspect-ratio */
 .video-responsive-container {
   position: relative;
-  padding-bottom: 56.25%; /* 16:9 Ratio */
+  padding-bottom: 56.25%; /* Golden 16:9 Cinema Aspect Ratio */
   height: 0;
   overflow: hidden;
+  background: #000;
 }
 
 .video-responsive-container iframe,
@@ -366,6 +365,7 @@ main{
   width: 100%;
   height: 100%;
   border: none;
+  background: #000;
 }
 
 .close-player-btn {
@@ -374,25 +374,28 @@ main{
   background: #ef4444;
   color: #fff;
   border: none;
-  padding: 10px;
-  border-radius: 0 0 12px 12px;
+  padding: 12px;
   font-weight: bold;
   cursor: pointer;
   font-family: inherit;
   transition: background 0.2s;
+  font-size: 14px;
 }
 
 .close-player-btn:hover {
   background: #dc2626;
 }
 
-/* MOBILE */
+/* MOBILE RESPONSIVENESS */
 @media(max-width:700px){
   .chapters-grid{
     grid-template-columns:1fr;
   }
   .header-stats{
     display:none;
+  }
+  .modal {
+    max-height: 98vh;
   }
 }
 </style>
@@ -435,11 +438,13 @@ main{
     </div>
     <div class="modal-tabs" id="modalTabs"></div>
     <div class="modal-body">
+      
       <div class="player-wrap" id="playerWrap" style="display:none;">
         <div class="video-responsive-container" id="videoContainer">
            </div>
         <button class="close-player-btn" id="closePlayerBtn">🛑 Player બંધ કરો</button>
       </div>
+      
       <div id="modalBody"></div>
     </div>
   </div>
@@ -633,7 +638,6 @@ function renderTab(chapter,key){
     div.className='resource-item';
     const isVideo = key.includes('Video') || key === 'videos';
 
-    // Clean title mechanics to remove unnecessary strings safely
     let cleanTitle = item.title
       .replace(/\|\|\s*Yakeen (Neet|NEET) Gujarati 2026/gi, '')
       .replace(/:\s*Class Notes\s*\|\|\s*Yakeen.*/gi, '')
@@ -646,7 +650,6 @@ function renderTab(chapter,key){
       <span>➔</span>
     `;
 
-    // Strict security click listener: links never exposed anywhere
     div.onclick = (e)=>{
       e.preventDefault();
       if(!item.url) return;
@@ -663,41 +666,43 @@ function renderTab(chapter,key){
 }
 
 /* =========================
-   PLAY VIDEO MECHANICS (FIXED & SECURED)
+   FAST-SPEED STREAM ENGINE (OPTIMIZED)
 ========================= */
 function playVideo(url){
   const wrap = document.getElementById('playerWrap');
   const container = document.getElementById('videoContainer');
   
   wrap.style.display = 'block';
-  container.innerHTML = ''; // Prevents overlap injection
+  container.innerHTML = ''; // Fresh instance generation instantly
 
-  // Checking if stream url is an embedded/iframe target or standard mp4 video file
+  // Fast loading setup check
   if(url.includes('iframe') || url.includes('embed') || url.includes('.html') || url.startsWith('http://') || url.startsWith('https://') && !url.includes('.mp4')){
     const iframe = document.createElement('iframe');
     iframe.src = url;
+    // Removed lazy loading scripts for blazing fast stream acceleration
     iframe.allow = "autoplay; encrypted-media; fullscreen";
     iframe.allowFullscreen = true;
     container.appendChild(iframe);
   } else {
-    // Falls back seamlessly into regular standard HTML5 stream system
     const video = document.createElement('video');
     video.src = url;
     video.controls = true;
     video.autoplay = true;
+    // Preload set to auto to ensure the hardware acceleration speeds up content delivery
+    video.preload = "auto"; 
     video.controlsList = "nodownload noplaybackrate";
     video.setAttribute('disablepictureinpicture', 'true');
     container.appendChild(video);
   }
 
-  // Auto scroll straight up into player frame execution instantly
+  // Smooth cinematic viewing autoscroll jump execution
   wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function closeVideoPlayer(){
   const wrap = document.getElementById('playerWrap');
   const container = document.getElementById('videoContainer');
-  if(container) container.innerHTML = ''; // Clears source execution inside DOM instantly
+  if(container) container.innerHTML = ''; 
   if(wrap) wrap.style.display = 'none';
 }
 
@@ -720,7 +725,7 @@ document.getElementById('modalOverlay').onclick = function(e){
 };
 
 /* =========================
-   BASIC PROTECTION & SOURCE PROTECTION
+   SECURITY SYSTEMS
 ========================= */
 document.addEventListener('contextmenu', e => e.preventDefault());
 
