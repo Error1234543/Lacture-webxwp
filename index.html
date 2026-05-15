@@ -2,7 +2,7 @@
 <html lang="gu">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>Yakeen NEET Gujarati 2026</title>
 
@@ -10,7 +10,7 @@
 
 <style>
 /* =========================
-   FULL STYLE
+   FULL SYSTEM STYLE
 ========================= */
 
 :root{
@@ -31,6 +31,7 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body{
@@ -159,7 +160,7 @@ header{
   cursor:pointer;
 }
 
-/* MAIN */
+/* MAIN GRID */
 main{
   max-width:1300px;
   margin:auto;
@@ -193,7 +194,6 @@ main{
   font-size:13px;
 }
 
-/* GRID */
 .chapters-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
@@ -236,7 +236,7 @@ main{
 .notes{ color:#4ade80; }
 .dpp{ color:#fb923c; }
 
-/* MODAL */
+/* TELEGRAM MINI APP STYLE SCREEN-FIT MODAL */
 .modal-overlay{
   position:fixed;
   inset:0;
@@ -245,59 +245,76 @@ main{
   align-items:center;
   justify-content:center;
   z-index:999;
-  padding:10px; /* Reduced for bigger screen utilization */
 }
 
 .modal{
   width:100%;
-  max-width:950px; /* Increased modal width for big size player */
-  max-height:96vh; /* Max height utilization */
+  max-width:750px;
+  height:100%; /* Full screen height like micro apps */
+  max-height:100vh;
   overflow:hidden;
-  border-radius:20px;
-  background:var(--bg2);
-  border:1px solid var(--border);
+  background:var(--bg);
   display:flex;
   flex-direction:column;
+}
+
+@media(min-width: 701px) {
+  .modal {
+    height: 92vh;
+    max-height: 850px;
+    border-radius: 24px;
+    border: 1px solid var(--border);
+  }
 }
 
 .modal-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:18px 22px;
+  padding:16px 20px;
+  background:var(--bg2);
   border-bottom:1px solid var(--border);
 }
 
 .modal-header h2{
-  font-size:20px;
+  font-size:18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80%;
 }
 
 .modal-close{
-  width:36px;
-  height:36px;
+  width:34px;
+  height:34px;
   border:none;
-  border-radius:10px;
+  border-radius:50%;
   background:var(--bg3);
   color:white;
   cursor:pointer;
+  font-size:14px;
 }
 
 .modal-tabs{
   display:flex;
-  gap:10px;
-  padding:14px 18px;
+  gap:8px;
+  padding:12px 16px;
+  background:var(--bg2);
   border-bottom:1px solid var(--border);
   overflow-x:auto;
+  scrollbar-width: none;
 }
+.modal-tabs::-webkit-scrollbar { display: none; }
 
 .modal-tab{
   border:none;
   background:var(--bg3);
-  color:white;
-  padding:10px 15px;
-  border-radius:10px;
+  color:var(--muted);
+  padding:8px 14px;
+  border-radius:20px;
   cursor:pointer;
   font-weight:700;
+  font-size:13px;
   white-space:nowrap;
 }
 
@@ -306,55 +323,21 @@ main{
   color:black;
 }
 
-.modal-body{
-  padding:16px;
-  overflow-y:auto;
-  flex:1;
-}
-
-.resource-list{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.resource-item{
-  background:var(--bg3);
-  border-radius:12px;
-  padding:14px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  cursor:pointer;
-  transition:0.2s;
-}
-
-.resource-item:hover{
-  transform:translateX(4px);
-}
-
-.r-title{
-  flex:1;
-}
-
-/* BIG SIZE VIDEO CONTAINER WITH INSTANT SPEED LOADING FLUIDITY */
+/* APP PLAYER CONTAINER (TOP STICKED INTERFACE) */
 .player-wrap {
-  margin-bottom: 20px;
-  border-radius: 16px;
-  overflow: hidden;
-  background: #000;
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 12px 36px rgba(0,0,0,0.7);
-  position: relative;
   width: 100%;
+  background: #000;
+  display: none;
+  border-bottom: 2px solid rgba(56,189,248,0.3);
+  position: relative;
+  z-index: 10;
 }
 
 .video-responsive-container {
   position: relative;
-  padding-bottom: 56.25%; /* Golden 16:9 Cinema Aspect Ratio */
+  padding-bottom: 56.25%; /* 16:9 Screen Fit Ratio */
   height: 0;
   overflow: hidden;
-  background: #000;
 }
 
 .video-responsive-container iframe,
@@ -368,35 +351,77 @@ main{
   background: #000;
 }
 
+.player-control-bar {
+  display: flex;
+  background: #111424;
+  padding: 8px 16px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.playing-title {
+  font-size: 13px;
+  color: var(--physics);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70%;
+}
+
 .close-player-btn {
-  display: block;
-  width: 100%;
   background: #ef4444;
   color: #fff;
   border: none;
-  padding: 12px;
+  padding: 5px 12px;
+  border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
-  font-family: inherit;
+  font-size: 12px;
+}
+
+.modal-body-scroll{
+  overflow-y:auto;
+  flex:1;
+  padding: 16px;
+}
+
+.resource-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.resource-item{
+  background:var(--bg2);
+  border-radius:14px;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  cursor:pointer;
   transition: background 0.2s;
+  border: 1px solid transparent;
+}
+
+.resource-item:hover{
+  background: var(--bg3);
+}
+
+.resource-item.playing-active {
+  border-color: var(--physics);
+  background: rgba(56,189,248,0.05);
+}
+
+.r-title{
+  flex:1;
   font-size: 14px;
 }
 
-.close-player-btn:hover {
-  background: #dc2626;
-}
-
-/* MOBILE RESPONSIVENESS */
+/* MOBILE SYSTEM */
 @media(max-width:700px){
-  .chapters-grid{
-    grid-template-columns:1fr;
-  }
-  .header-stats{
-    display:none;
-  }
-  .modal {
-    max-height: 98vh;
-  }
+  .chapters-grid{ grid-template-columns:1fr; }
+  .header-stats{ display:none; }
 }
 </style>
 </head>
@@ -436,15 +461,19 @@ main{
       <h2 id="modalTitle"></h2>
       <button class="modal-close" id="modalClose">✕</button>
     </div>
+    
     <div class="modal-tabs" id="modalTabs"></div>
-    <div class="modal-body">
-      
-      <div class="player-wrap" id="playerWrap" style="display:none;">
-        <div class="video-responsive-container" id="videoContainer">
-           </div>
-        <button class="close-player-btn" id="closePlayerBtn">🛑 Player બંધ કરો</button>
+    
+    <div class="player-wrap" id="playerWrap">
+      <div class="video-responsive-container" id="videoContainer">
+         </div>
+      <div class="player-control-bar">
+        <div class="playing-title" id="playingTitle">Now Playing...</div>
+        <button class="close-player-btn" id="closePlayerBtn">🛑 Close</button>
       </div>
-      
+    </div>
+    
+    <div class="modal-body-scroll">
       <div id="modalBody"></div>
     </div>
   </div>
@@ -452,7 +481,7 @@ main{
 
 <script>
 /* =========================
-   SUBJECTS
+   CORE CONFIG DATA
 ========================= */
 const SUBJECTS = {
   Physics:{ emoji:'⚡', color:'#38bdf8', bg:'rgba(56,189,248,0.1)' },
@@ -472,7 +501,7 @@ let allData = {};
 let activeSubject = 'Physics';
 
 /* =========================
-   INIT
+   INIT SYSTEM
 ========================= */
 async function init(){
   try{
@@ -483,25 +512,16 @@ async function init(){
     renderSubject(activeSubject);
     setupSearch();
   }catch(e){
-    document.getElementById('mainContent').innerHTML =
-    '<h2 style="color:red">❌ data.json load failed</h2>';
+    document.getElementById('mainContent').innerHTML = '<h2 style="color:red">❌ data.json load failed</h2>';
   }
 }
 
-/* =========================
-   STATS
-========================= */
 function buildStats(){
   let total = 0;
   Object.values(allData).forEach(v=>{ total += v.length; });
-  document.getElementById('headerStats').innerHTML = `
-    <div class="stat-pill">📚 ${total} Chapters</div>
-  `;
+  document.getElementById('headerStats').innerHTML = `<div class="stat-pill">📚 ${total} Chapters</div>`;
 }
 
-/* =========================
-   NAV
-========================= */
 function buildNav(){
   const nav = document.getElementById('subjectNav');
   nav.innerHTML = '';
@@ -520,9 +540,6 @@ function buildNav(){
   });
 }
 
-/* =========================
-   SUBJECT PAGE
-========================= */
 function renderSubject(subject){
   const main = document.getElementById('mainContent');
   const chapters = allData[subject] || [];
@@ -556,24 +573,15 @@ function renderSubject(subject){
   });
 }
 
-/* =========================
-   SEARCH
-========================= */
 function setupSearch(){
   const input = document.getElementById('searchInput');
   const clearBtn = document.getElementById('clearSearch');
 
   input.addEventListener('input',()=>{
     const q = input.value.toLowerCase();
-    if(!q){
-      renderSubject(activeSubject);
-      return;
-    }
+    if(!q){ renderSubject(activeSubject); return; }
 
-    const chapters = (allData[activeSubject] || []).filter(ch=>
-      ch.name.toLowerCase().includes(q)
-    );
-
+    const chapters = (allData[activeSubject] || []).filter(ch=>ch.name.toLowerCase().includes(q));
     const main = document.getElementById('mainContent');
     main.innerHTML = `<div class="chapters-grid" id="chaptersGrid"></div>`;
     const grid = document.getElementById('chaptersGrid');
@@ -587,14 +595,11 @@ function setupSearch(){
     });
   });
 
-  clearBtn.onclick = () => {
-    input.value = '';
-    renderSubject(activeSubject);
-  };
+  clearBtn.onclick = () => { input.value = ''; renderSubject(activeSubject); };
 }
 
 /* =========================
-   MODAL
+   MODAL CONTROLLER
 ========================= */
 function openModal(chapter){
   closeVideoPlayer();
@@ -606,7 +611,7 @@ function openModal(chapter){
     const btn = document.createElement('button');
     btn.className = 'modal-tab' + (index===0 ? ' active':'');
     btn.innerText = tab.label;
-    btn.onclick = ()=>{
+    btn.onclick = () => {
       document.querySelectorAll('.modal-tab').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
       renderTab(chapter,tab.key);
@@ -616,17 +621,18 @@ function openModal(chapter){
 
   renderTab(chapter,'videos');
   document.getElementById('modalOverlay').style.display='flex';
+  document.body.style.overflow = 'hidden'; // Prevents body scroll
 }
 
 /* =========================
-   RENDER TAB
+   RENDER TAB ITEMS
 ========================= */
 function renderTab(chapter,key){
   const body = document.getElementById('modalBody');
   const items = chapter[key] || [];
 
   if(!items.length){
-    body.innerHTML = '<h3 style="text-align:center;color:var(--muted);padding:20px;">No Content Available</h3>';
+    body.innerHTML = '<h3 style="text-align:center;color:var(--muted);padding:40px 20px;">No Content Available</h3>';
     return;
   }
 
@@ -636,6 +642,7 @@ function renderTab(chapter,key){
   items.forEach((item,index)=>{
     const div = document.createElement('div');
     div.className='resource-item';
+    div.id = `item-${key}-${index}`;
     const isVideo = key.includes('Video') || key === 'videos';
 
     let cleanTitle = item.title
@@ -655,7 +662,10 @@ function renderTab(chapter,key){
       if(!item.url) return;
 
       if(isVideo){
-        playVideo(item.url);
+        // Remove active class from other elements
+        document.querySelectorAll('.resource-item').forEach(el => el.classList.remove('playing-active'));
+        div.classList.add('playing-active');
+        playVideo(item.url, cleanTitle);
       } else {
         window.open(item.url, '_blank', 'noopener,noreferrer');
       }
@@ -666,20 +676,21 @@ function renderTab(chapter,key){
 }
 
 /* =========================
-   FAST-SPEED STREAM ENGINE (OPTIMIZED)
+   TELEGRAM FLUID SPEED PLAYBACK ENGINE
 ========================= */
-function playVideo(url){
+function playVideo(url, title){
   const wrap = document.getElementById('playerWrap');
   const container = document.getElementById('videoContainer');
+  const titleDisplay = document.getElementById('playingTitle');
   
+  titleDisplay.innerText = `Playing: ${title}`;
   wrap.style.display = 'block';
-  container.innerHTML = ''; // Fresh instance generation instantly
+  container.innerHTML = ''; // Memory flush
 
-  // Fast loading setup check
+  // Speed Load Validation System
   if(url.includes('iframe') || url.includes('embed') || url.includes('.html') || url.startsWith('http://') || url.startsWith('https://') && !url.includes('.mp4')){
     const iframe = document.createElement('iframe');
     iframe.src = url;
-    // Removed lazy loading scripts for blazing fast stream acceleration
     iframe.allow = "autoplay; encrypted-media; fullscreen";
     iframe.allowFullscreen = true;
     container.appendChild(iframe);
@@ -688,15 +699,11 @@ function playVideo(url){
     video.src = url;
     video.controls = true;
     video.autoplay = true;
-    // Preload set to auto to ensure the hardware acceleration speeds up content delivery
-    video.preload = "auto"; 
+    video.preload = "auto"; // Pre-allocates networking pipe threads instantly
     video.controlsList = "nodownload noplaybackrate";
     video.setAttribute('disablepictureinpicture', 'true');
     container.appendChild(video);
   }
-
-  // Smooth cinematic viewing autoscroll jump execution
-  wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function closeVideoPlayer(){
@@ -704,45 +711,35 @@ function closeVideoPlayer(){
   const container = document.getElementById('videoContainer');
   if(container) container.innerHTML = ''; 
   if(wrap) wrap.style.display = 'none';
+  document.querySelectorAll('.resource-item').forEach(el => el.classList.remove('playing-active'));
 }
 
 document.getElementById('closePlayerBtn').onclick = closeVideoPlayer;
 
 /* =========================
-   CLOSE MODAL
+   MODAL FLUSH CLOSE
 ========================= */
 function closeModal(){
   closeVideoPlayer();
   document.getElementById('modalOverlay').style.display='none';
+  document.body.style.overflow = '';
 }
 
 document.getElementById('modalClose').onclick = closeModal;
-
 document.getElementById('modalOverlay').onclick = function(e){
-  if(e.target.id === 'modalOverlay'){
-    closeModal();
-  }
+  if(e.target.id === 'modalOverlay'){ closeModal(); }
 };
 
 /* =========================
-   SECURITY SYSTEMS
+   SECURITY BLOCK CODES
 ========================= */
 document.addEventListener('contextmenu', e => e.preventDefault());
-
 document.addEventListener('keydown', function(e){
-  if(
-    e.key==='F12' ||
-    (e.ctrlKey && e.shiftKey && e.key==='I') ||
-    (e.ctrlKey && e.key==='u') ||
-    (e.ctrlKey && e.key==='s')
-  ){
+  if(e.key==='F12' || (e.ctrlKey && e.shiftKey && e.key==='I') || (e.ctrlKey && e.key==='u') || (e.ctrlKey && e.key==='s')){
     e.preventDefault();
   }
 });
 
-/* =========================
-   START
-========================= */
 init();
 </script>
 
