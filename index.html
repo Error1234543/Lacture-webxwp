@@ -460,7 +460,7 @@ main{
 <script>
 
 /* =========================
-   SUBJECT CONFIG
+   SUBJECTS
 ========================= */
 
 const SUBJECTS = {
@@ -504,7 +504,7 @@ let allData = {};
 let activeSubject = 'Physics';
 
 /* =========================
-   LOAD DATA.JSON
+   INIT
 ========================= */
 
 async function init(){
@@ -554,7 +554,7 @@ function buildStats(){
 }
 
 /* =========================
-   NAVIGATION
+   NAV
 ========================= */
 
 function buildNav(){
@@ -619,6 +619,7 @@ function renderSubject(subject){
       </div>
 
       <div>
+
         <h2 style="color:${cfg.color}">
           ${subject}
         </h2>
@@ -626,6 +627,7 @@ function renderSubject(subject){
         <p>
           ${chapters.length} Chapters
         </p>
+
       </div>
 
     </div>
@@ -775,6 +777,10 @@ function openModal(chapter){
 
 }
 
+/* =========================
+   RENDER TAB
+========================= */
+
 function renderTab(chapter,key){
 
   const body = document.getElementById('modalBody');
@@ -794,14 +800,21 @@ function renderTab(chapter,key){
   `
     <div class="resource-list"></div>
 
-    <div class="player-wrap" id="playerWrap">
+    <div class="player-wrap"
+    id="playerWrap"
+    style="display:none;margin-top:20px;">
 
-      <iframe
-        id="videoFrame"
-        allowfullscreen
-        allow="autoplay; encrypted-media"
-        referrerpolicy="no-referrer"
-      ></iframe>
+      <video
+        id="videoPlayer"
+        controls
+        controlsList="nodownload noplaybackrate"
+        disablepictureinpicture
+        style="
+          width:100%;
+          border-radius:16px;
+          background:black;
+        "
+      ></video>
 
     </div>
   `;
@@ -818,7 +831,9 @@ function renderTab(chapter,key){
     `
       <span>${index+1}</span>
 
-      <span>▶️</span>
+      <span>
+      ${key.includes('Video') || key === 'videos' ? '▶️' : '📄'}
+      </span>
 
       <span class="r-title">
         ${item.title}
@@ -829,9 +844,18 @@ function renderTab(chapter,key){
 
     div.onclick = ()=>{
 
-      if(item.url){
+      if(!item.url) return;
 
-        openProtectedPlayer(item.url);
+      if(
+        key === 'videos' ||
+        key === 'dppVideos'
+      ){
+
+        playVideo(item.url);
+
+      }else{
+
+        window.open(item.url,'_blank');
 
       }
 
@@ -844,22 +868,32 @@ function renderTab(chapter,key){
 }
 
 /* =========================
-   PROTECTED PLAYER
+   PLAY VIDEO
 ========================= */
 
-function openProtectedPlayer(url){
+function playVideo(url){
 
-  const wrap = document.getElementById('playerWrap');
+  const wrap =
+    document.getElementById('playerWrap');
 
-  const frame = document.getElementById('videoFrame');
+  const player =
+    document.getElementById('videoPlayer');
 
-  wrap.style.display='block';
+  wrap.style.display = 'block';
 
-  const realUrl = atob(btoa(url));
+  // clear old video
+  player.pause();
 
-  frame.src =
-  "https://iframe.mediadelivery.net/play/" +
-  btoa(realUrl);
+  player.src = '';
+
+  // encoded url
+  const hiddenUrl = atob(btoa(url));
+
+  player.src = hiddenUrl;
+
+  player.load();
+
+  player.play();
 
 }
 
@@ -872,10 +906,15 @@ function closeModal(){
   document.getElementById('modalOverlay')
   .style.display='none';
 
-  const frame = document.getElementById('videoFrame');
+  const player =
+    document.getElementById('videoPlayer');
 
-  if(frame){
-    frame.src='';
+  if(player){
+
+    player.pause();
+
+    player.src='';
+
   }
 
 }
@@ -893,11 +932,13 @@ document.getElementById('modalOverlay')
 };
 
 /* =========================
-   PROTECTION
+   BASIC PROTECTION
 ========================= */
 
-document.addEventListener('contextmenu',
-e=>e.preventDefault());
+document.addEventListener(
+  'contextmenu',
+  e=>e.preventDefault()
+);
 
 document.addEventListener('keydown',function(e){
 
@@ -918,6 +959,3 @@ document.addEventListener('keydown',function(e){
 init();
 
 </script>
-
-</body>
-</html>
