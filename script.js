@@ -19,7 +19,7 @@ const TAB_CONFIG = [
 
 // ─── PLAYER & TOKEN SETTINGS ─────────────────────
 const PLAYER_BASE_URL = "https://anonymouspwplayerr-3cfbfedeb317.herokuapp.com/pw";
-const PW_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3Nzk0MzQwMjQuODMsImRhdGEiOnsiX2lkIjoiNjhiNTlmOTMyYzQxMTYxNTI5YWQ0MDU5IiwidXNlcm5hbWUiOiI5MTA2MTM1NDA5IiwiZmlyc3ROYW1lIjoiRGl5dSIsImxhc3ROYW1lIjoiR2FtaXQiLCJvcmdhbml6YXRpb24iOnsiX2lkIjoiNWViMzkzZWU5NWZhYjc0NjhhNzlkMTg5Iiwid2Vic2l0ZSI6InBoeXNpY3N3YWxsYWguY29tIiwibmFtZSI6IlBoeXNpY3N3YWxsYWgifSwiZW1haWwiOiJkaXZ5YW5naWdhbWl0OTBAZ21haWwuY29tIiwicm9sZXMiOlsiNWIyN2JkOTY1ODQyZjk1MGE3NzhjNmVmIl0sImNvdW50cnlHcm91cCI6IklOIiwidHlwZSI6IlVTRVIifSwianRpIjoialpYSlE1UlVUSHFBWjc4T0pLeWVpQV82OGI1OWY5MzJjNDExNjE1MjlhZDQwNTkiLCJpYXQiOjE3Nzg4MjkyMjR9._iVf42LKYHzbjOmkl5q30tmY8kli0Lw4hIMDwPZoxNYE"; // <-- Idhar apni actual token value paste karein
+const PW_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3Nzk0MzQwMjQuODMsImRhdGEiOnsiX2lkIjoiNjhiNTlmOTMyYzQxMTYxNTI5YWQ0MDU5IiwidXNlcm5hbWUiOiI5MTA2MTM1NDA5IiwiZmlyc3ROYW1lIjoiRGl5dSIsImxhc3ROYW1lIjoiR2FtaXQiLCJvcmdhbml6YXRpb24iOnsiX2lkIjoiNWViMzkzZWU5NWZhYjc0NjhhNzlkMTg5Iiwid2Vic2l0ZSI6InBoeXNpY3N3YWxsYWguY29tIiwibmFtZSI6IlBoeXNpY3N3YWxsYWgifSwiZW1haWwiOiJkaXZ5YW5naWdhbWl0OTBAZ21haWwuY29tIiwicm9sZXMiOlsiNWIyN2JkOTY1ODQyZjk1MGE3NzhjNmVmIl0sImNvdW50cnlHcm91cCI6IklOIiwidHlwZSI6IlVTRVIifSwianRpIjoialpYSlE1UlVUSHFBWjc4T0pLeWVpQV82OGI1OWY5MzJjNDExNjE1MjlhZDQwNTkiLCJpYXQiOjE3Nzg4MjkyMjR9._iVf42LKYHzbjOmkl5q30tmY8kli0Lw4hIMDwPZoxNYE";
 
 let allData = {};
 let activeSubject = 'Physics';
@@ -146,6 +146,7 @@ function setupSearch() {
   });
 }
 
+// ─── CLEAR SEARCH ───────────────────────
 function clearSearch() {
   const input = document.getElementById('searchInput');
   const clearBtn = document.getElementById('clearSearch');
@@ -153,6 +154,7 @@ function clearSearch() {
   clearBtn.style.display = 'none';
 }
 
+// ─── RENDER SEARCH ──────────────────────
 function renderSearch(query) {
   const q = query.toLowerCase();
   const main = document.getElementById('mainContent');
@@ -249,14 +251,21 @@ function renderModalBody(chapter, tabKey, emoji, color) {
     const a = document.createElement('a');
     a.className = 'resource-item';
     
-    // Dynamic URL generation for stream play layout
     if (item.url) {
       if (isVideo) {
-        // Agar resource item video ya dppVideo h, toh use stream url format me convert karein
-        const encodedUrl = encodeURIComponent(item.url);
-        a.href = `${PLAYER_BASE_URL}?url=${encodedUrl}&token=${PW_TOKEN}`;
+        // dynamic parameter splitter taaki heroku ko arguments direct mil sakein
+        let mainUrl = item.url;
+        let extraParams = "";
+
+        if (item.url.includes('&')) {
+          const parts = item.url.split('&');
+          mainUrl = parts; 
+          extraParams = "&" + parts.slice(1).join('&'); 
+        }
+
+        const encodedUrl = encodeURIComponent(mainUrl);
+        a.href = `${PLAYER_BASE_URL}?url=${encodedUrl}&token=${PW_TOKEN}${extraParams}`;
       } else {
-        // Baaki tabs (Notes / DPP Notes) ke liye original live link layout chalega
         a.href = item.url;
       }
     } else {
