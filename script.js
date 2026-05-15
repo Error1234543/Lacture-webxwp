@@ -17,6 +17,10 @@ const TAB_CONFIG = [
   { key: 'dppVideos',label: 'DPP Videos',emoji: '🎥',  color: '#a78bfa' },
 ];
 
+// ─── PLAYER & TOKEN SETTINGS ─────────────────────
+const PLAYER_BASE_URL = "https://anonymouspwplayerr-3cfbfedeb317.herokuapp.com/pw";
+const PW_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3Nzk0MzQwMjQuODMsImRhdGEiOnsiX2lkIjoiNjhiNTlmOTMyYzQxMTYxNTI5YWQ0MDU5IiwidXNlcm5hbWUiOiI5MTA2MTM1NDA5IiwiZmlyc3ROYW1lIjoiRGl5dSIsImxhc3ROYW1lIjoiR2FtaXQiLCJvcmdhbml6YXRpb24iOnsiX2lkIjoiNWViMzkzZWU5NWZhYjc0NjhhNzlkMTg5Iiwid2Vic2l0ZSI6InBoeXNpY3N3YWxsYWguY29tIiwibmFtZSI6IlBoeXNpY3N3YWxsYWgifSwiZW1haWwiOiJkaXZ5YW5naWdhbWl0OTBAZ21haWwuY29tIiwicm9sZXMiOlsiNWIyN2JkOTY1ODQyZjk1MGE3NzhjNmVmIl0sImNvdW50cnlHcm91cCI6IklOIiwidHlwZSI6IlVTRVIifSwianRpIjoialpYSlE1UlVUSHFBWjc4T0pLeWVpQV82OGI1OWY5MzJjNDExNjE1MjlhZDQwNTkiLCJpYXQiOjE3Nzg4MjkyMjR9._iVf42LKYHzbjOmkl5q30tmY8kli0Lw4hIMDwPZoxNYE"; // <-- Idhar apni actual token value paste karein
+
 let allData = {};
 let activeSubject = 'Physics';
 let activeModalTab = 'videos';
@@ -162,7 +166,6 @@ function renderSearch(query) {
     const cfg = SUBJECTS[subjectName];
     html += `<div class="search-subject-label">${cfg.emoji} ${subjectName}</div><div class="chapters-grid">`;
     matched.forEach((ch, i) => {
-      // temp container to collect html
       const div = document.createElement('div');
       div.appendChild(buildChapterCard(ch, subjectName, i));
       html += div.innerHTML;
@@ -182,7 +185,6 @@ function renderSearch(query) {
     ${html}
   `;
 
-  // Re-attach click events since we used innerHTML
   document.querySelectorAll('.chapter-card').forEach(card => {
     const name = card.querySelector('.chapter-name').textContent;
     Object.entries(allData).forEach(([subjectName, chapters]) => {
@@ -208,7 +210,6 @@ function openModal(chapter, subjectName) {
   const overlay = document.getElementById('modalOverlay');
   document.getElementById('modalTitle').textContent = chapter.name;
 
-  // Build tabs
   const tabsEl = document.getElementById('modalTabs');
   tabsEl.innerHTML = '';
   TAB_CONFIG.forEach(tab => {
@@ -247,12 +248,25 @@ function renderModalBody(chapter, tabKey, emoji, color) {
   items.forEach((item, i) => {
     const a = document.createElement('a');
     a.className = 'resource-item';
-    a.href = item.url || '#';
+    
+    // Dynamic URL generation for stream play layout
+    if (item.url) {
+      if (isVideo) {
+        // Agar resource item video ya dppVideo h, toh use stream url format me convert karein
+        const encodedUrl = encodeURIComponent(item.url);
+        a.href = `${PLAYER_BASE_URL}?url=${encodedUrl}&token=${PW_TOKEN}`;
+      } else {
+        // Baaki tabs (Notes / DPP Notes) ke liye original live link layout chalega
+        a.href = item.url;
+      }
+    } else {
+      a.href = '#';
+    }
+
     a.target = '_blank';
     a.rel = 'noopener noreferrer';
     if (!item.url) a.style.pointerEvents = 'none';
 
-    // Clean title: remove "Yakeen NEET Gujarati 2026" suffix
     let title = item.title
       .replace(/\|\|\s*Yakeen (Neet|NEET) Gujarati 2026/gi, '')
       .replace(/:\s*Class Notes\s*\|\|\s*Yakeen.*/gi, '')
