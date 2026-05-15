@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="gu">
 <head>
@@ -9,7 +10,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-
 /* =========================
    FULL STYLE
 ========================= */
@@ -39,10 +39,10 @@ body{
   color:var(--text);
   font-family:'Baloo 2','Noto Sans Gujarati',sans-serif;
   overflow-x:hidden;
+  user-select: none; /* Prevents text/link copying */
 }
 
 /* HEADER */
-
 header{
   position:sticky;
   top:0;
@@ -97,7 +97,6 @@ header{
 }
 
 /* SUBJECT NAV */
-
 .subject-nav{
   display:flex;
   overflow-x:auto;
@@ -127,7 +126,6 @@ header{
 }
 
 /* SEARCH */
-
 .search-wrap{
   max-width:1300px;
   margin:auto;
@@ -163,7 +161,6 @@ header{
 }
 
 /* MAIN */
-
 main{
   max-width:1300px;
   margin:auto;
@@ -198,7 +195,6 @@ main{
 }
 
 /* GRID */
-
 .chapters-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
@@ -237,24 +233,15 @@ main{
   background:rgba(255,255,255,0.06);
 }
 
-.videos{
-  color:#38bdf8;
-}
-
-.notes{
-  color:#4ade80;
-}
-
-.dpp{
-  color:#fb923c;
-}
+.videos{ color:#38bdf8; }
+.notes{ color:#4ade80; }
+.dpp{ color:#fb923c; }
 
 /* MODAL */
-
 .modal-overlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.82);
+  background:rgba(0,0,0,0.85);
   display:none;
   align-items:center;
   justify-content:center;
@@ -270,6 +257,8 @@ main{
   border-radius:20px;
   background:var(--bg2);
   border:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
 }
 
 .modal-header{
@@ -299,6 +288,7 @@ main{
   gap:10px;
   padding:18px;
   border-bottom:1px solid var(--border);
+  overflow-x:auto;
 }
 
 .modal-tab{
@@ -309,6 +299,7 @@ main{
   border-radius:10px;
   cursor:pointer;
   font-weight:700;
+  white-space:nowrap;
 }
 
 .modal-tab.active{
@@ -319,7 +310,7 @@ main{
 .modal-body{
   padding:20px;
   overflow-y:auto;
-  max-height:70vh;
+  flex:1;
 }
 
 .resource-list{
@@ -347,157 +338,129 @@ main{
   flex:1;
 }
 
-.player-wrap{
-  margin-top:18px;
-  border-radius:18px;
-  overflow:hidden;
-  display:none;
-  background:black;
+/* VIDEO CONTAINER FIX */
+.player-wrap {
+  margin-bottom: 20px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: black;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  position: relative;
+  width: 100%;
 }
 
-.player-wrap iframe{
-  width:100%;
-  height:430px;
-  border:none;
+/* Seamless responsive player aspect-ratio */
+.video-responsive-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 Ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-responsive-container iframe,
+.video-responsive-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.close-player-btn {
+  display: block;
+  width: 100%;
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 0 0 12px 12px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+
+.close-player-btn:hover {
+  background: #dc2626;
 }
 
 /* MOBILE */
-
 @media(max-width:700px){
-
   .chapters-grid{
     grid-template-columns:1fr;
   }
-
   .header-stats{
     display:none;
   }
-
-  .player-wrap iframe{
-    height:230px;
-  }
-
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-
 <header>
-
   <div class="header-inner">
-
     <div class="logo">
-
       <div class="logo-icon">🎯</div>
-
       <div>
         <div class="logo-title">Yakeen NEET</div>
         <div class="logo-sub">Gujarati 2026</div>
       </div>
-
     </div>
-
     <div class="header-stats" id="headerStats"></div>
-
   </div>
-
 </header>
-
-<!-- SUBJECT NAV -->
 
 <nav class="subject-nav" id="subjectNav"></nav>
 
-<!-- SEARCH -->
-
 <div class="search-wrap">
-
   <div class="search-box">
-
     <span>🔍</span>
-
     <input type="text" id="searchInput" placeholder="Chapter શોધો...">
-
     <button class="clear-btn" id="clearSearch">✕</button>
-
   </div>
-
 </div>
 
-<!-- MAIN -->
-
 <main id="mainContent">
-
   <h2>Loading...</h2>
-
 </main>
 
-<!-- MODAL -->
-
 <div class="modal-overlay" id="modalOverlay">
-
   <div class="modal">
-
     <div class="modal-header">
-
       <h2 id="modalTitle"></h2>
-
       <button class="modal-close" id="modalClose">✕</button>
-
     </div>
-
     <div class="modal-tabs" id="modalTabs"></div>
-
-    <div class="modal-body" id="modalBody"></div>
-
+    <div class="modal-body">
+      <div class="player-wrap" id="playerWrap" style="display:none;">
+        <div class="video-responsive-container" id="videoContainer">
+           </div>
+        <button class="close-player-btn" id="closePlayerBtn">🛑 Player બંધ કરો</button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
   </div>
-
 </div>
 
 <script>
-
 /* =========================
    SUBJECTS
 ========================= */
-
 const SUBJECTS = {
-
-  Physics:{
-    emoji:'⚡',
-    color:'#38bdf8',
-    bg:'rgba(56,189,248,0.1)'
-  },
-
-  Chemistry:{
-    emoji:'🧪',
-    color:'#f472b6',
-    bg:'rgba(244,114,182,0.1)'
-  },
-
-  Botany:{
-    emoji:'🌿',
-    color:'#4ade80',
-    bg:'rgba(74,222,128,0.1)'
-  },
-
-  Zoology:{
-    emoji:'🐾',
-    color:'#fb923c',
-    bg:'rgba(251,146,60,0.1)'
-  }
-
+  Physics:{ emoji:'⚡', color:'#38bdf8', bg:'rgba(56,189,248,0.1)' },
+  Chemistry:{ emoji:'🧪', color:'#f472b6', bg:'rgba(244,114,182,0.1)' },
+  Botany:{ emoji:'🌿', color:'#4ade80', bg:'rgba(74,222,128,0.1)' },
+  Zoology:{ emoji:'🐾', color:'#fb923c', bg:'rgba(251,146,60,0.1)' }
 };
 
 const TABS = [
-
   {key:'videos',label:'Videos'},
   {key:'notes',label:'Notes'},
   {key:'dppNotes',label:'DPP Notes'},
   {key:'dppVideos',label:'DPP Videos'}
-
 ];
 
 let allData = {};
@@ -506,456 +469,277 @@ let activeSubject = 'Physics';
 /* =========================
    INIT
 ========================= */
-
 async function init(){
-
   try{
-
     const res = await fetch('data.json');
-
     allData = await res.json();
-
     buildStats();
-
     buildNav();
-
     renderSubject(activeSubject);
-
     setupSearch();
-
   }catch(e){
-
     document.getElementById('mainContent').innerHTML =
     '<h2 style="color:red">❌ data.json load failed</h2>';
-
   }
-
 }
 
 /* =========================
    STATS
 ========================= */
-
 function buildStats(){
-
   let total = 0;
-
-  Object.values(allData).forEach(v=>{
-    total += v.length;
-  });
-
-  document.getElementById('headerStats').innerHTML =
-  `
-    <div class="stat-pill">
-      📚 ${total} Chapters
-    </div>
+  Object.values(allData).forEach(v=>{ total += v.length; });
+  document.getElementById('headerStats').innerHTML = `
+    <div class="stat-pill">📚 ${total} Chapters</div>
   `;
-
 }
 
 /* =========================
    NAV
 ========================= */
-
 function buildNav(){
-
   const nav = document.getElementById('subjectNav');
-
   nav.innerHTML = '';
-
   Object.entries(SUBJECTS).forEach(([name,cfg])=>{
-
     const btn = document.createElement('button');
-
-    btn.className =
-      'subject-btn' +
-      (name===activeSubject ? ' active':'');
-
+    btn.className = 'subject-btn' + (name===activeSubject ? ' active':'');
     btn.style.setProperty('--subject-color',cfg.color);
-
-    btn.innerHTML =
-    `
-      ${cfg.emoji} ${name}
-    `;
-
+    btn.innerHTML = `${cfg.emoji} ${name}`;
     btn.onclick = ()=>{
-
       activeSubject = name;
-
-      document.querySelectorAll('.subject-btn')
-      .forEach(b=>b.classList.remove('active'));
-
+      document.querySelectorAll('.subject-btn').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
-
       renderSubject(name);
-
     };
-
     nav.appendChild(btn);
-
   });
-
 }
 
 /* =========================
    SUBJECT PAGE
 ========================= */
-
 function renderSubject(subject){
-
   const main = document.getElementById('mainContent');
-
   const chapters = allData[subject] || [];
-
   const cfg = SUBJECTS[subject];
 
-  main.innerHTML =
-  `
+  main.innerHTML = `
     <div class="subject-header">
-
-      <div class="subject-icon"
-      style="background:${cfg.bg}">
-        ${cfg.emoji}
-      </div>
-
+      <div class="subject-icon" style="background:${cfg.bg}">${cfg.emoji}</div>
       <div>
-
-        <h2 style="color:${cfg.color}">
-          ${subject}
-        </h2>
-
-        <p>
-          ${chapters.length} Chapters
-        </p>
-
+        <h2 style="color:${cfg.color}">${subject}</h2>
+        <p>${chapters.length} Chapters</p>
       </div>
-
     </div>
-
     <div class="chapters-grid" id="chaptersGrid"></div>
   `;
 
   const grid = document.getElementById('chaptersGrid');
-
   chapters.forEach(ch=>{
-
     const card = document.createElement('div');
-
     card.className = 'chapter-card';
-
-    card.innerHTML =
-    `
-      <div class="chapter-name">
-        ${ch.name}
-      </div>
-
+    card.innerHTML = `
+      <div class="chapter-name">${ch.name}</div>
       <div class="chapter-badges">
-
-        <span class="badge videos">
-          ▶️ ${ch.videos.length}
-        </span>
-
-        <span class="badge notes">
-          📄 ${ch.notes.length}
-        </span>
-
-        <span class="badge dpp">
-          📝 ${ch.dppNotes.length}
-        </span>
-
+        <span class="badge videos">▶️ ${ch.videos ? ch.videos.length : 0}</span>
+        <span class="badge notes">📄 ${ch.notes ? ch.notes.length : 0}</span>
+        <span class="badge dpp">📝 ${ch.dppNotes ? ch.dppNotes.length : 0}</span>
       </div>
     `;
-
     card.onclick = ()=>openModal(ch);
-
     grid.appendChild(card);
-
   });
-
 }
 
 /* =========================
    SEARCH
 ========================= */
-
 function setupSearch(){
-
   const input = document.getElementById('searchInput');
+  const clearBtn = document.getElementById('clearSearch');
 
   input.addEventListener('input',()=>{
-
     const q = input.value.toLowerCase();
-
     if(!q){
-
       renderSubject(activeSubject);
-
       return;
-
     }
 
-    const chapters =
-      (allData[activeSubject] || [])
-      .filter(ch=>
-        ch.name.toLowerCase().includes(q)
-      );
+    const chapters = (allData[activeSubject] || []).filter(ch=>
+      ch.name.toLowerCase().includes(q)
+    );
 
     const main = document.getElementById('mainContent');
-
-    main.innerHTML =
-    `
-      <div class="chapters-grid" id="chaptersGrid"></div>
-    `;
-
+    main.innerHTML = `<div class="chapters-grid" id="chaptersGrid"></div>`;
     const grid = document.getElementById('chaptersGrid');
 
     chapters.forEach(ch=>{
-
       const card = document.createElement('div');
-
       card.className='chapter-card';
-
-      card.innerHTML =
-      `
-        <div class="chapter-name">
-          ${ch.name}
-        </div>
-      `;
-
+      card.innerHTML = `<div class="chapter-name">${ch.name}</div>`;
       card.onclick = ()=>openModal(ch);
-
       grid.appendChild(card);
-
     });
-
   });
 
+  clearBtn.onclick = () => {
+    input.value = '';
+    renderSubject(activeSubject);
+  };
 }
 
 /* =========================
    MODAL
 ========================= */
-
 function openModal(chapter){
-
-  document.getElementById('modalTitle').innerText =
-  chapter.name;
-
+  closeVideoPlayer();
+  document.getElementById('modalTitle').innerText = chapter.name;
   const tabs = document.getElementById('modalTabs');
-
   tabs.innerHTML = '';
 
   TABS.forEach((tab,index)=>{
-
     const btn = document.createElement('button');
-
-    btn.className =
-      'modal-tab' +
-      (index===0 ? ' active':'');
-
+    btn.className = 'modal-tab' + (index===0 ? ' active':'');
     btn.innerText = tab.label;
-
     btn.onclick = ()=>{
-
-      document.querySelectorAll('.modal-tab')
-      .forEach(b=>b.classList.remove('active'));
-
+      document.querySelectorAll('.modal-tab').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
-
       renderTab(chapter,tab.key);
-
     };
-
     tabs.appendChild(btn);
-
   });
 
   renderTab(chapter,'videos');
-
-  document.getElementById('modalOverlay')
-  .style.display='flex';
-
+  document.getElementById('modalOverlay').style.display='flex';
 }
 
 /* =========================
    RENDER TAB
 ========================= */
-
 function renderTab(chapter,key){
-
   const body = document.getElementById('modalBody');
-
   const items = chapter[key] || [];
 
   if(!items.length){
-
-    body.innerHTML =
-    '<h3>No Content</h3>';
-
+    body.innerHTML = '<h3 style="text-align:center;color:var(--muted);padding:20px;">No Content Available</h3>';
     return;
-
   }
 
-  body.innerHTML =
-  `
-    <div class="resource-list"></div>
-
-    <div class="player-wrap"
-    id="playerWrap"
-    style="display:none;margin-top:20px;">
-
-      <video
-        id="videoPlayer"
-        controls
-        controlsList="nodownload noplaybackrate"
-        disablepictureinpicture
-        style="
-          width:100%;
-          border-radius:16px;
-          background:black;
-        "
-      ></video>
-
-    </div>
-  `;
-
+  body.innerHTML = `<div class="resource-list"></div>`;
   const list = body.querySelector('.resource-list');
 
   items.forEach((item,index)=>{
-
     const div = document.createElement('div');
-
     div.className='resource-item';
+    const isVideo = key.includes('Video') || key === 'videos';
 
-    div.innerHTML =
-    `
+    // Clean title mechanics to remove unnecessary strings safely
+    let cleanTitle = item.title
+      .replace(/\|\|\s*Yakeen (Neet|NEET) Gujarati 2026/gi, '')
+      .replace(/:\s*Class Notes\s*\|\|\s*Yakeen.*/gi, '')
+      .trim();
+
+    div.innerHTML = `
       <span>${index+1}</span>
-
-      <span>
-      ${key.includes('Video') || key === 'videos' ? '▶️' : '📄'}
-      </span>
-
-      <span class="r-title">
-        ${item.title}
-      </span>
-
-      <span>↗</span>
+      <span>${isVideo ? '▶️' : '📄'}</span>
+      <span class="r-title">${cleanTitle}</span>
+      <span>➔</span>
     `;
 
-    div.onclick = ()=>{
-
+    // Strict security click listener: links never exposed anywhere
+    div.onclick = (e)=>{
+      e.preventDefault();
       if(!item.url) return;
 
-      if(
-        key === 'videos' ||
-        key === 'dppVideos'
-      ){
-
+      if(isVideo){
         playVideo(item.url);
-
-      }else{
-
-        window.open(item.url,'_blank');
-
+      } else {
+        window.open(item.url, '_blank', 'noopener,noreferrer');
       }
-
     };
 
     list.appendChild(div);
-
   });
-
 }
 
 /* =========================
-   PLAY VIDEO
+   PLAY VIDEO MECHANICS (FIXED & SECURED)
 ========================= */
-
 function playVideo(url){
-
-  const wrap =
-    document.getElementById('playerWrap');
-
-  const player =
-    document.getElementById('videoPlayer');
-
+  const wrap = document.getElementById('playerWrap');
+  const container = document.getElementById('videoContainer');
+  
   wrap.style.display = 'block';
+  container.innerHTML = ''; // Prevents overlap injection
 
-  // clear old video
-  player.pause();
+  // Checking if stream url is an embedded/iframe target or standard mp4 video file
+  if(url.includes('iframe') || url.includes('embed') || url.includes('.html') || url.startsWith('http://') || url.startsWith('https://') && !url.includes('.mp4')){
+    const iframe = document.createElement('iframe');
+    iframe.src = url;
+    iframe.allow = "autoplay; encrypted-media; fullscreen";
+    iframe.allowFullscreen = true;
+    container.appendChild(iframe);
+  } else {
+    // Falls back seamlessly into regular standard HTML5 stream system
+    const video = document.createElement('video');
+    video.src = url;
+    video.controls = true;
+    video.autoplay = true;
+    video.controlsList = "nodownload noplaybackrate";
+    video.setAttribute('disablepictureinpicture', 'true');
+    container.appendChild(video);
+  }
 
-  player.src = '';
-
-  // encoded url
-  const hiddenUrl = atob(btoa(url));
-
-  player.src = hiddenUrl;
-
-  player.load();
-
-  player.play();
-
+  // Auto scroll straight up into player frame execution instantly
+  wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+
+function closeVideoPlayer(){
+  const wrap = document.getElementById('playerWrap');
+  const container = document.getElementById('videoContainer');
+  if(container) container.innerHTML = ''; // Clears source execution inside DOM instantly
+  if(wrap) wrap.style.display = 'none';
+}
+
+document.getElementById('closePlayerBtn').onclick = closeVideoPlayer;
 
 /* =========================
    CLOSE MODAL
 ========================= */
-
 function closeModal(){
-
-  document.getElementById('modalOverlay')
-  .style.display='none';
-
-  const player =
-    document.getElementById('videoPlayer');
-
-  if(player){
-
-    player.pause();
-
-    player.src='';
-
-  }
-
+  closeVideoPlayer();
+  document.getElementById('modalOverlay').style.display='none';
 }
 
-document.getElementById('modalClose')
-.onclick = closeModal;
+document.getElementById('modalClose').onclick = closeModal;
 
-document.getElementById('modalOverlay')
-.onclick = function(e){
-
-  if(e.target.id==='modalOverlay'){
+document.getElementById('modalOverlay').onclick = function(e){
+  if(e.target.id === 'modalOverlay'){
     closeModal();
   }
-
 };
 
 /* =========================
-   BASIC PROTECTION
+   BASIC PROTECTION & SOURCE PROTECTION
 ========================= */
+document.addEventListener('contextmenu', e => e.preventDefault());
 
-document.addEventListener(
-  'contextmenu',
-  e=>e.preventDefault()
-);
-
-document.addEventListener('keydown',function(e){
-
+document.addEventListener('keydown', function(e){
   if(
     e.key==='F12' ||
     (e.ctrlKey && e.shiftKey && e.key==='I') ||
-    (e.ctrlKey && e.key==='u')
+    (e.ctrlKey && e.key==='u') ||
+    (e.ctrlKey && e.key==='s')
   ){
     e.preventDefault();
   }
-
 });
 
 /* =========================
    START
 ========================= */
-
 init();
-
 </script>
+
+</body>
+</html>
