@@ -9,10 +9,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* =========================
-   FULL SYSTEM STYLE
-========================= */
-
+/* =========================================
+   CORE THEME & TELEGRAM APP VIEW UI
+   ========================================= */
 :root{
   --bg:#0d0f1a;
   --bg2:#13172b;
@@ -42,7 +41,7 @@ body{
   user-select: none;
 }
 
-/* HEADER */
+/* STICKY TOP HEADER */
 header{
   position:sticky;
   top:0;
@@ -66,10 +65,7 @@ header{
   align-items:center;
 }
 
-.logo-icon{
-  font-size:30px;
-}
-
+.logo-icon{ font-size:30px; }
 .logo-title{
   font-size:22px;
   font-weight:800;
@@ -77,17 +73,9 @@ header{
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
+.logo-sub{ font-size:12px; color:var(--muted); }
 
-.logo-sub{
-  font-size:12px;
-  color:var(--muted);
-}
-
-.header-stats{
-  display:flex;
-  gap:12px;
-}
-
+.header-stats{ display:flex; gap:12px; }
 .stat-pill{
   background:var(--bg3);
   padding:7px 14px;
@@ -96,17 +84,14 @@ header{
   border:1px solid var(--border);
 }
 
-/* SUBJECT NAV */
+/* SUBJECT NAVIGATION BAR */
 .subject-nav{
   display:flex;
   overflow-x:auto;
   scrollbar-width:none;
   background:var(--bg2);
 }
-
-.subject-nav::-webkit-scrollbar{
-  display:none;
-}
+.subject-nav::-webkit-scrollbar{ display:none; }
 
 .subject-btn{
   background:none;
@@ -119,19 +104,17 @@ header{
   white-space:nowrap;
   border-bottom:3px solid transparent;
 }
-
 .subject-btn.active{
   color:var(--subject-color);
   border-bottom-color:var(--subject-color);
 }
 
-/* SEARCH */
+/* SEARCH INPUT */
 .search-wrap{
   max-width:1300px;
   margin:auto;
   padding:20px;
 }
-
 .search-box{
   background:var(--bg2);
   border:1px solid var(--border);
@@ -141,7 +124,6 @@ header{
   align-items:center;
   gap:10px;
 }
-
 .search-box input{
   flex:1;
   background:none;
@@ -152,28 +134,26 @@ header{
   font-size:15px;
   font-family:inherit;
 }
-
 .clear-btn{
   background:none;
   border:none;
   color:white;
   cursor:pointer;
+  font-size:16px;
 }
 
-/* MAIN GRID */
+/* GRID DASHBOARD */
 main{
   max-width:1300px;
   margin:auto;
   padding:20px;
 }
-
 .subject-header{
   display:flex;
   align-items:center;
   gap:14px;
   margin-bottom:24px;
 }
-
 .subject-icon{
   width:54px;
   height:54px;
@@ -183,23 +163,14 @@ main{
   justify-content:center;
   font-size:28px;
 }
-
-.subject-header h2{
-  font-size:25px;
-  font-weight:800;
-}
-
-.subject-header p{
-  color:var(--muted);
-  font-size:13px;
-}
+.subject-header h2{ font-size:25px; font-weight:800; }
+.subject-header p{ color:var(--muted); font-size:13px; }
 
 .chapters-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
   gap:18px;
 }
-
 .chapter-card{
   background:var(--bg2);
   border:1px solid var(--border);
@@ -208,35 +179,20 @@ main{
   cursor:pointer;
   transition:0.2s;
 }
-
-.chapter-card:hover{
-  transform:translateY(-4px);
-}
-
-.chapter-name{
-  font-size:16px;
-  font-weight:700;
-  margin-bottom:14px;
-}
-
-.chapter-badges{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-
+.chapter-card:hover{ transform:translateY(-4px); }
+.chapter-name{ font-size:16px; font-weight:700; margin-bottom:14px; }
+.chapter-badges{ display:flex; flex-wrap:wrap; gap:8px; }
 .badge{
   padding:6px 10px;
   border-radius:10px;
   font-size:12px;
   background:rgba(255,255,255,0.06);
 }
-
 .videos{ color:#38bdf8; }
 .notes{ color:#4ade80; }
 .dpp{ color:#fb923c; }
 
-/* TELEGRAM MINI APP STYLE SCREEN-FIT MODAL */
+/* MINI APP SCREEN-FIT MODAL STRUCTURE */
 .modal-overlay{
   position:fixed;
   inset:0;
@@ -246,18 +202,16 @@ main{
   justify-content:center;
   z-index:999;
 }
-
 .modal{
   width:100%;
   max-width:750px;
-  height:100%; /* Full screen height like micro apps */
+  height:100%; 
   max-height:100vh;
   overflow:hidden;
   background:var(--bg);
   display:flex;
   flex-direction:column;
 }
-
 @media(min-width: 701px) {
   .modal {
     height: 92vh;
@@ -275,7 +229,6 @@ main{
   background:var(--bg2);
   border-bottom:1px solid var(--border);
 }
-
 .modal-header h2{
   font-size:18px;
   white-space: nowrap;
@@ -283,7 +236,6 @@ main{
   text-overflow: ellipsis;
   max-width: 80%;
 }
-
 .modal-close{
   width:34px;
   height:34px;
@@ -292,7 +244,6 @@ main{
   background:var(--bg3);
   color:white;
   cursor:pointer;
-  font-size:14px;
 }
 
 .modal-tabs{
@@ -305,7 +256,6 @@ main{
   scrollbar-width: none;
 }
 .modal-tabs::-webkit-scrollbar { display: none; }
-
 .modal-tab{
   border:none;
   background:var(--bg3);
@@ -317,13 +267,9 @@ main{
   font-size:13px;
   white-space:nowrap;
 }
+.modal-tab.active{ background:#38bdf8; color:black; }
 
-.modal-tab.active{
-  background:#38bdf8;
-  color:black;
-}
-
-/* APP PLAYER CONTAINER (TOP STICKED INTERFACE) */
+/* STICKY SCREEN-FIT TOP PLAYER INTERFACE */
 .player-wrap {
   width: 100%;
   background: #000;
@@ -332,14 +278,12 @@ main{
   position: relative;
   z-index: 10;
 }
-
 .video-responsive-container {
   position: relative;
-  padding-bottom: 56.25%; /* 16:9 Screen Fit Ratio */
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio Execution */
   height: 0;
   overflow: hidden;
 }
-
 .video-responsive-container iframe,
 .video-responsive-container video {
   position: absolute;
@@ -350,7 +294,6 @@ main{
   border: none;
   background: #000;
 }
-
 .player-control-bar {
   display: flex;
   background: #111424;
@@ -359,7 +302,6 @@ main{
   align-items: center;
   border-bottom: 1px solid var(--border);
 }
-
 .playing-title {
   font-size: 13px;
   color: var(--physics);
@@ -368,7 +310,6 @@ main{
   text-overflow: ellipsis;
   max-width: 70%;
 }
-
 .close-player-btn {
   background: #ef4444;
   color: #fff;
@@ -385,13 +326,7 @@ main{
   flex:1;
   padding: 16px;
 }
-
-.resource-list{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
+.resource-list{ display:flex; flex-direction:column; gap:10px; }
 .resource-item{
   background:var(--bg2);
   border-radius:14px;
@@ -403,22 +338,14 @@ main{
   transition: background 0.2s;
   border: 1px solid transparent;
 }
-
-.resource-item:hover{
-  background: var(--bg3);
-}
-
+.resource-item:hover{ background: var(--bg3); }
 .resource-item.playing-active {
   border-color: var(--physics);
   background: rgba(56,189,248,0.05);
 }
+.r-title{ flex:1; font-size: 14px; }
 
-.r-title{
-  flex:1;
-  font-size: 14px;
-}
-
-/* MOBILE SYSTEM */
+/* RESPONSIVE SCALE FIXES */
 @media(max-width:700px){
   .chapters-grid{ grid-template-columns:1fr; }
   .header-stats{ display:none; }
@@ -452,7 +379,7 @@ main{
 </div>
 
 <main id="mainContent">
-  <h2>Loading...</h2>
+  <h2>Loading Dashboard Systems...</h2>
 </main>
 
 <div class="modal-overlay" id="modalOverlay">
@@ -468,8 +395,8 @@ main{
       <div class="video-responsive-container" id="videoContainer">
          </div>
       <div class="player-control-bar">
-        <div class="playing-title" id="playingTitle">Now Playing...</div>
-        <button class="close-player-btn" id="closePlayerBtn">🛑 Close</button>
+        <div class="playing-title" id="playingTitle">Now Buffering Stream Link...</div>
+        <button class="close-player-btn" id="closePlayerBtn">🛑 Close Player</button>
       </div>
     </div>
     
@@ -480,9 +407,9 @@ main{
 </div>
 
 <script>
-/* =========================
-   CORE CONFIG DATA
-========================= */
+/* =========================================
+   CORE SCRIPTING PLATFORM ENGINE
+   ========================================= */
 const SUBJECTS = {
   Physics:{ emoji:'⚡', color:'#38bdf8', bg:'rgba(56,189,248,0.1)' },
   Chemistry:{ emoji:'🧪', color:'#f472b6', bg:'rgba(244,114,182,0.1)' },
@@ -500,9 +427,7 @@ const TABS = [
 let allData = {};
 let activeSubject = 'Physics';
 
-/* =========================
-   INIT SYSTEM
-========================= */
+// CORE INITIALIZATION 
 async function init(){
   try{
     const res = await fetch('data.json');
@@ -512,7 +437,7 @@ async function init(){
     renderSubject(activeSubject);
     setupSearch();
   }catch(e){
-    document.getElementById('mainContent').innerHTML = '<h2 style="color:red">❌ data.json load failed</h2>';
+    document.getElementById('mainContent').innerHTML = '<h2 style="color:red">❌ data.json parsing or mapping crash detected</h2>';
   }
 }
 
@@ -598,9 +523,7 @@ function setupSearch(){
   clearBtn.onclick = () => { input.value = ''; renderSubject(activeSubject); };
 }
 
-/* =========================
-   MODAL CONTROLLER
-========================= */
+/* MODAL SYSTEM CONTROLS */
 function openModal(chapter){
   closeVideoPlayer();
   document.getElementById('modalTitle').innerText = chapter.name;
@@ -621,18 +544,16 @@ function openModal(chapter){
 
   renderTab(chapter,'videos');
   document.getElementById('modalOverlay').style.display='flex';
-  document.body.style.overflow = 'hidden'; // Prevents body scroll
+  document.body.style.overflow = 'hidden'; 
 }
 
-/* =========================
-   RENDER TAB ITEMS
-========================= */
+/* RENDER DYNAMIC TAB SYSTEM */
 function renderTab(chapter,key){
   const body = document.getElementById('modalBody');
   const items = chapter[key] || [];
 
   if(!items.length){
-    body.innerHTML = '<h3 style="text-align:center;color:var(--muted);padding:40px 20px;">No Content Available</h3>';
+    body.innerHTML = '<h3 style="text-align:center;color:var(--muted);padding:40px 20px;">No Content Available In This Segment</h3>';
     return;
   }
 
@@ -642,9 +563,9 @@ function renderTab(chapter,key){
   items.forEach((item,index)=>{
     const div = document.createElement('div');
     div.className='resource-item';
-    div.id = `item-${key}-${index}`;
     const isVideo = key.includes('Video') || key === 'videos';
 
+    // Regex cleaning mechanics for a premium look
     let cleanTitle = item.title
       .replace(/\|\|\s*Yakeen (Neet|NEET) Gujarati 2026/gi, '')
       .replace(/:\s*Class Notes\s*\|\|\s*Yakeen.*/gi, '')
@@ -662,7 +583,6 @@ function renderTab(chapter,key){
       if(!item.url) return;
 
       if(isVideo){
-        // Remove active class from other elements
         document.querySelectorAll('.resource-item').forEach(el => el.classList.remove('playing-active'));
         div.classList.add('playing-active');
         playVideo(item.url, cleanTitle);
@@ -675,9 +595,7 @@ function renderTab(chapter,key){
   });
 }
 
-/* =========================
-   TELEGRAM FLUID SPEED PLAYBACK ENGINE
-========================= */
+/* ADVANCED ZERO-LAG STREAM INJECTION PIPELINE */
 function playVideo(url, title){
   const wrap = document.getElementById('playerWrap');
   const container = document.getElementById('videoContainer');
@@ -685,9 +603,9 @@ function playVideo(url, title){
   
   titleDisplay.innerText = `Playing: ${title}`;
   wrap.style.display = 'block';
-  container.innerHTML = ''; // Memory flush
+  container.innerHTML = ''; 
 
-  // Speed Load Validation System
+  // Fast acceleration setup
   if(url.includes('iframe') || url.includes('embed') || url.includes('.html') || url.startsWith('http://') || url.startsWith('https://') && !url.includes('.mp4')){
     const iframe = document.createElement('iframe');
     iframe.src = url;
@@ -699,7 +617,7 @@ function playVideo(url, title){
     video.src = url;
     video.controls = true;
     video.autoplay = true;
-    video.preload = "auto"; // Pre-allocates networking pipe threads instantly
+    video.preload = "auto"; 
     video.controlsList = "nodownload noplaybackrate";
     video.setAttribute('disablepictureinpicture', 'true');
     container.appendChild(video);
@@ -716,9 +634,6 @@ function closeVideoPlayer(){
 
 document.getElementById('closePlayerBtn').onclick = closeVideoPlayer;
 
-/* =========================
-   MODAL FLUSH CLOSE
-========================= */
 function closeModal(){
   closeVideoPlayer();
   document.getElementById('modalOverlay').style.display='none';
@@ -730,9 +645,7 @@ document.getElementById('modalOverlay').onclick = function(e){
   if(e.target.id === 'modalOverlay'){ closeModal(); }
 };
 
-/* =========================
-   SECURITY BLOCK CODES
-========================= */
+/* SOURCE DEFIANCE SYSTEMS */
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('keydown', function(e){
   if(e.key==='F12' || (e.ctrlKey && e.shiftKey && e.key==='I') || (e.ctrlKey && e.key==='u') || (e.ctrlKey && e.key==='s')){
@@ -740,6 +653,7 @@ document.addEventListener('keydown', function(e){
   }
 });
 
+// START EXECUTION
 init();
 </script>
 
