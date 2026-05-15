@@ -17,10 +17,6 @@ const TAB_CONFIG = [
   { key: 'dppVideos',label: 'DPP Videos',emoji: '🎥',  color: '#a78bfa' },
 ];
 
-// ─── PLAYER & TOKEN SETTINGS ─────────────────────
-const PLAYER_BASE_URL = "https://anonymouspwplayerr-3cfbfedeb317.herokuapp.com/pw";
-const PW_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3Nzk0MzQwMjQuODMsImRhdGEiOnsiX2lkIjoiNjhiNTlmOTMyYzQxMTYxNTI5YWQ0MDU5IiwidXNlcm5hbWUiOiI5MTA2MTM1NDA5IiwiZmlyc3ROYW1lIjoiRGl5dSIsImxhc3ROYW1lIjoiR2FtaXQiLCJvcmdhbml6YXRpb24iOnsiX2lkIjoiNWViMzkzZWU5NWZhYjc0NjhhNzlkMTg5Iiwid2Vic2l0ZSI6InBoeXNpY3N3YWxsYWguY29tIiwibmFtZSI6IlBoeXNpY3N3YWxsYWgifSwiZW1haWwiOiJkaXZ5YW5naWdhbWl0OTBAZ21haWwuY29tIiwicm9sZXMiOlsiNWIyN2JkOTY1ODQyZjk1MGE3NzhjNmVmIl0sImNvdW50cnlHcm91cCI6IklOIiwidHlwZSI6IlVTRVIifSwianRpIjoialpYSlE1UlVUSHFBWjc4T0pLeWVpQV82OGI1OWY5MzJjNDExNjE1MjlhZDQwNTkiLCJpYXQiOjE3Nzg4MjkyMjR9._iVf42LKYHzbjOmkl5q30tmY8kli0Lw4hIMDwPZoxNYE";
-
 let allData = {};
 let activeSubject = 'Physics';
 let activeModalTab = 'videos';
@@ -53,18 +49,15 @@ function buildStats() {
     });
   });
   const el = document.getElementById('headerStats');
-  if (el) {
-    el.innerHTML = `
-      <div class="stat-pill"><span>🎯</span>${totalChapters} Chapters</div>
-      <div class="stat-pill"><span>🔗</span>${totalResources}+ Resources</div>
-    `;
-  }
+  el.innerHTML = `
+    <div class="stat-pill"><span>📚</span>${totalChapters} Chapters</div>
+    <div class="stat-pill"><span>🔗</span>${totalResources}+ Resources</div>
+  `;
 }
 
 // ─── SUBJECT NAV ────────────────────────
 function buildSubjectNav() {
   const nav = document.getElementById('subjectNav');
-  if (!nav) return;
   nav.innerHTML = '';
   Object.entries(SUBJECTS).forEach(([name, cfg]) => {
     const chapters = allData[name] || [];
@@ -86,7 +79,6 @@ function buildSubjectNav() {
 // ─── RENDER SUBJECT ─────────────────────
 function renderSubject(subjectName) {
   const main = document.getElementById('mainContent');
-  if (!main) return;
   const chapters = allData[subjectName] || [];
   const cfg = SUBJECTS[subjectName];
 
@@ -114,9 +106,9 @@ function buildChapterCard(chapter, subjectName, index) {
   card.className = 'chapter-card';
   card.style.cssText = `--subject-color:${cfg.color}; animation-delay:${Math.min(index * 0.04, 0.5)}s`;
 
-  const vCount = chapter.videos ? chapter.videos.length : 0;
-  const nCount = chapter.notes ? chapter.notes.length : 0;
-  const dppCount = chapter.dppNotes ? chapter.dppNotes.length : 0;
+  const vCount = chapter.videos.length;
+  const nCount = chapter.notes.length;
+  const dppCount = chapter.dppNotes.length;
 
   card.innerHTML = `
     <div class="chapter-name">${chapter.name}</div>
@@ -134,7 +126,6 @@ function buildChapterCard(chapter, subjectName, index) {
 function setupSearch() {
   const input = document.getElementById('searchInput');
   const clearBtn = document.getElementById('clearSearch');
-  if (!input || !clearBtn) return;
 
   input.addEventListener('input', () => {
     clearTimeout(searchTimer);
@@ -154,14 +145,13 @@ function setupSearch() {
 function clearSearch() {
   const input = document.getElementById('searchInput');
   const clearBtn = document.getElementById('clearSearch');
-  if (input) input.value = '';
-  if (clearBtn) clearBtn.style.display = 'none';
+  input.value = '';
+  clearBtn.style.display = 'none';
 }
 
 function renderSearch(query) {
   const q = query.toLowerCase();
   const main = document.getElementById('mainContent');
-  if (!main) return;
   let html = '';
   let totalFound = 0;
 
@@ -170,7 +160,14 @@ function renderSearch(query) {
     if (!matched.length) return;
     totalFound += matched.length;
     const cfg = SUBJECTS[subjectName];
-    html += `<div class="search-subject-label">${cfg.emoji} ${subjectName}</div><div class="chapters-grid" id="search-grid-${subjectName}"></div>`;
+    html += `<div class="search-subject-label">${cfg.emoji} ${subjectName}</div><div class="chapters-grid">`;
+    matched.forEach((ch, i) => {
+      // temp container to collect html
+      const div = document.createElement('div');
+      div.appendChild(buildChapterCard(ch, subjectName, i));
+      html += div.innerHTML;
+    });
+    html += '</div>';
   });
 
   if (!totalFound) {
@@ -185,28 +182,22 @@ function renderSearch(query) {
     ${html}
   `;
 
-  // Append nodes safely instead of innerHTML breakages
-  Object.entries(allData).forEach(([subjectName, chapters]) => {
-    const grid = document.getElementById(`search-grid-${subjectName}`);
-    if (!grid) return;
-    const matched = chapters.filter(ch => ch.name.toLowerCase().includes(q));
-    matched.forEach((ch, i) => {
-      grid.appendChild(buildChapterCard(ch, subjectName, i));
+  // Re-attach click events since we used innerHTML
+  document.querySelectorAll('.chapter-card').forEach(card => {
+    const name = card.querySelector('.chapter-name').textContent;
+    Object.entries(allData).forEach(([subjectName, chapters]) => {
+      const ch = chapters.find(c => c.name === name);
+      if (ch) card.addEventListener('click', () => openModal(ch, subjectName));
     });
   });
 }
 
 // ─── MODAL ──────────────────────────────
 function setupModal() {
-  const closeBtn = document.getElementById('modalClose');
-  const overlay = document.getElementById('modalOverlay');
-  
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  if (overlay) {
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) closeModal();
-    });
-  }
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalOverlay').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeModal();
   });
@@ -215,29 +206,25 @@ function setupModal() {
 function openModal(chapter, subjectName) {
   activeModalTab = 'videos';
   const overlay = document.getElementById('modalOverlay');
-  const titleEl = document.getElementById('modalTitle');
-  if (!overlay || !titleEl) return;
+  document.getElementById('modalTitle').textContent = chapter.name;
 
-  titleEl.textContent = chapter.name;
-
+  // Build tabs
   const tabsEl = document.getElementById('modalTabs');
-  if (tabsEl) {
-    tabsEl.innerHTML = '';
-    TAB_CONFIG.forEach(tab => {
-      const count = (chapter[tab.key] || []).length;
-      const btn = document.createElement('button');
-      btn.className = 'modal-tab' + (tab.key === activeModalTab ? ' active' : '');
-      btn.style.setProperty('--tab-color', tab.color);
-      btn.innerHTML = `${tab.emoji} ${tab.label} <span class="tab-count">${count}</span>`;
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.modal-tab').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        activeModalTab = tab.key;
-        renderModalBody(chapter, tab.key, tab.emoji, tab.color);
-      });
-      tabsEl.appendChild(btn);
+  tabsEl.innerHTML = '';
+  TAB_CONFIG.forEach(tab => {
+    const count = (chapter[tab.key] || []).length;
+    const btn = document.createElement('button');
+    btn.className = 'modal-tab' + (tab.key === activeModalTab ? ' active' : '');
+    btn.style.setProperty('--tab-color', tab.color);
+    btn.innerHTML = `${tab.emoji} ${tab.label} <span class="tab-count">${count}</span>`;
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.modal-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeModalTab = tab.key;
+      renderModalBody(chapter, tab.key, tab.emoji, tab.color);
     });
-  }
+    tabsEl.appendChild(btn);
+  });
 
   renderModalBody(chapter, 'videos', '▶️', '#38bdf8');
   overlay.style.display = 'flex';
@@ -247,7 +234,6 @@ function openModal(chapter, subjectName) {
 function renderModalBody(chapter, tabKey, emoji, color) {
   const items = chapter[tabKey] || [];
   const body = document.getElementById('modalBody');
-  if (!body) return;
 
   if (!items.length) {
     body.innerHTML = `<div class="empty-tab">😶 ${tabKey === 'dppVideos' ? 'DPP Videos' : tabKey} ઉપલબ્ધ નથી</div>`;
@@ -261,31 +247,12 @@ function renderModalBody(chapter, tabKey, emoji, color) {
   items.forEach((item, i) => {
     const a = document.createElement('a');
     a.className = 'resource-item';
-    
-    if (item.url) {
-      if (isVideo) {
-        // Enforce full URL encoding mechanism
-        const encodedUrl = encodeURIComponent(item.url);
-        
-        // Parallel raw param parsing architecture for proxy authentication bypass
-        let extraParams = "";
-        if (item.url.includes('&')) {
-          const parts = item.url.split('&');
-          extraParams = "&" + parts.slice(1).join('&'); 
-        }
-
-        a.href = `${PLAYER_BASE_URL}?url=${encodedUrl}&token=${PW_TOKEN}${extraParams}`;
-      } else {
-        a.href = item.url;
-      }
-    } else {
-      a.href = '#';
-    }
-
+    a.href = item.url || '#';
     a.target = '_blank';
     a.rel = 'noopener noreferrer';
     if (!item.url) a.style.pointerEvents = 'none';
 
+    // Clean title: remove "Yakeen NEET Gujarati 2026" suffix
     let title = item.title
       .replace(/\|\|\s*Yakeen (Neet|NEET) Gujarati 2026/gi, '')
       .replace(/:\s*Class Notes\s*\|\|\s*Yakeen.*/gi, '')
@@ -303,8 +270,7 @@ function renderModalBody(chapter, tabKey, emoji, color) {
 }
 
 function closeModal() {
-  const overlay = document.getElementById('modalOverlay');
-  if (overlay) overlay.style.display = 'none';
+  document.getElementById('modalOverlay').style.display = 'none';
   document.body.style.overflow = '';
 }
 
