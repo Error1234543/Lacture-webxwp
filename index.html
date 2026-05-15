@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html lang="gu">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Yakeen NEET Gujarati 2026</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 
-/* =========================================
-   YAKEEN NEET GUJARATI 2026 — FULL CSS
-========================================= */
+/* =========================
+   FULL STYLE
+========================= */
 
-:root {
-  --bg: #0d0f1a;
-  --bg2: #13172b;
-  --bg3: #1a1f38;
-  --border: rgba(255,255,255,0.07);
-  --text: #e8ecf8;
-  --text-muted: #7a82a8;
-  --accent-physics: #38bdf8;
-  --accent-chemistry: #f472b6;
-  --accent-botany: #4ade80;
-  --accent-zoology: #fb923c;
-  --accent-notices: #a78bfa;
-  --accent: #38bdf8;
-  --radius: 14px;
-  --transition: 0.2s ease;
+:root{
+  --bg:#0d0f1a;
+  --bg2:#13172b;
+  --bg3:#1a1f38;
+  --text:#ffffff;
+  --muted:#9aa4c7;
+  --border:rgba(255,255,255,0.08);
+
+  --physics:#38bdf8;
+  --chem:#f472b6;
+  --botany:#4ade80;
+  --zoo:#fb923c;
 }
 
 *{
@@ -38,23 +35,21 @@
 }
 
 body{
-  font-family:'Baloo 2','Noto Sans Gujarati',sans-serif;
   background:var(--bg);
   color:var(--text);
-  min-height:100vh;
+  font-family:'Baloo 2','Noto Sans Gujarati',sans-serif;
   overflow-x:hidden;
 }
 
 /* HEADER */
 
 header{
-  background:linear-gradient(135deg,#0d0f1a 0%,#1a1040 100%);
-  border-bottom:1px solid var(--border);
-  padding:0 24px;
   position:sticky;
   top:0;
   z-index:100;
-  backdrop-filter:blur(12px);
+  background:linear-gradient(135deg,#0d0f1a,#1d1040);
+  border-bottom:1px solid var(--border);
+  padding:16px 20px;
 }
 
 .header-inner{
@@ -63,21 +58,20 @@ header{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  height:64px;
 }
 
 .logo{
   display:flex;
-  align-items:center;
   gap:12px;
+  align-items:center;
 }
 
 .logo-icon{
-  font-size:28px;
+  font-size:30px;
 }
 
 .logo-title{
-  font-size:20px;
+  font-size:22px;
   font-weight:800;
   background:linear-gradient(90deg,#38bdf8,#818cf8);
   -webkit-background-clip:text;
@@ -85,26 +79,21 @@ header{
 }
 
 .logo-sub{
-  font-size:11px;
-  color:var(--text-muted);
-  font-weight:600;
+  font-size:12px;
+  color:var(--muted);
 }
 
 .header-stats{
   display:flex;
-  gap:20px;
+  gap:12px;
 }
 
 .stat-pill{
-  display:flex;
-  align-items:center;
-  gap:6px;
   background:var(--bg3);
-  border:1px solid var(--border);
-  padding:6px 14px;
+  padding:7px 14px;
   border-radius:999px;
   font-size:13px;
-  font-weight:600;
+  border:1px solid var(--border);
 }
 
 /* SUBJECT NAV */
@@ -114,8 +103,6 @@ header{
   overflow-x:auto;
   scrollbar-width:none;
   background:var(--bg2);
-  border-bottom:1px solid var(--border);
-  justify-content:center;
 }
 
 .subject-nav::-webkit-scrollbar{
@@ -123,19 +110,15 @@ header{
 }
 
 .subject-btn{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:0 20px;
-  height:52px;
   background:none;
   border:none;
-  color:var(--text-muted);
+  color:var(--muted);
+  padding:16px 22px;
+  font-size:15px;
   font-weight:700;
   cursor:pointer;
-  border-bottom:3px solid transparent;
-  transition:.2s;
   white-space:nowrap;
+  border-bottom:3px solid transparent;
 }
 
 .subject-btn.active{
@@ -143,32 +126,21 @@ header{
   border-bottom-color:var(--subject-color);
 }
 
-.subject-btn:hover{
-  color:white;
-}
-
-.s-count{
-  background:rgba(255,255,255,0.08);
-  padding:2px 7px;
-  border-radius:999px;
-  font-size:11px;
-}
-
 /* SEARCH */
 
 .search-wrap{
-  padding:20px 24px 0;
   max-width:1300px;
   margin:auto;
+  padding:20px;
 }
 
 .search-box{
-  display:flex;
-  align-items:center;
   background:var(--bg2);
   border:1px solid var(--border);
   border-radius:999px;
-  padding:0 20px;
+  padding:0 18px;
+  display:flex;
+  align-items:center;
   gap:10px;
 }
 
@@ -178,9 +150,9 @@ header{
   border:none;
   outline:none;
   color:white;
-  font-family:inherit;
-  font-size:15px;
   padding:14px 0;
+  font-size:15px;
+  font-family:inherit;
 }
 
 .clear-btn{
@@ -195,10 +167,8 @@ header{
 main{
   max-width:1300px;
   margin:auto;
-  padding:24px;
+  padding:20px;
 }
-
-/* SUBJECT HEADER */
 
 .subject-header{
   display:flex;
@@ -207,19 +177,24 @@ main{
   margin-bottom:24px;
 }
 
-.subject-header-icon{
-  width:52px;
-  height:52px;
-  border-radius:14px;
+.subject-icon{
+  width:54px;
+  height:54px;
+  border-radius:16px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:26px;
+  font-size:28px;
 }
 
-.subject-header-text h2{
-  font-size:24px;
+.subject-header h2{
+  font-size:25px;
   font-weight:800;
+}
+
+.subject-header p{
+  color:var(--muted);
+  font-size:13px;
 }
 
 /* GRID */
@@ -227,26 +202,24 @@ main{
 .chapters-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:16px;
+  gap:18px;
 }
-
-/* CHAPTER CARD */
 
 .chapter-card{
   background:var(--bg2);
   border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:20px;
+  border-radius:18px;
+  padding:18px;
   cursor:pointer;
-  transition:.2s;
+  transition:0.2s;
 }
 
 .chapter-card:hover{
-  transform:translateY(-3px);
+  transform:translateY(-4px);
 }
 
 .chapter-name{
-  font-size:15px;
+  font-size:16px;
   font-weight:700;
   margin-bottom:14px;
 }
@@ -258,22 +231,21 @@ main{
 }
 
 .badge{
-  padding:5px 11px;
-  border-radius:8px;
+  padding:6px 10px;
+  border-radius:10px;
   font-size:12px;
-  font-weight:600;
-  background:rgba(255,255,255,0.05);
+  background:rgba(255,255,255,0.06);
 }
 
-.badge.videos{
+.videos{
   color:#38bdf8;
 }
 
-.badge.notes{
+.notes{
   color:#4ade80;
 }
 
-.badge.dpp{
+.dpp{
   color:#fb923c;
 }
 
@@ -282,34 +254,39 @@ main{
 .modal-overlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.8);
-  z-index:300;
+  background:rgba(0,0,0,0.82);
   display:none;
   align-items:center;
   justify-content:center;
+  z-index:999;
   padding:20px;
 }
 
 .modal{
-  background:var(--bg2);
   width:100%;
-  max-width:750px;
-  border-radius:20px;
+  max-width:800px;
+  max-height:92vh;
   overflow:hidden;
-  border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;
+  background:var(--bg2);
+  border:1px solid var(--border);
 }
 
 .modal-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:20px;
+  padding:22px;
   border-bottom:1px solid var(--border);
 }
 
+.modal-header h2{
+  font-size:20px;
+}
+
 .modal-close{
-  width:34px;
-  height:34px;
+  width:36px;
+  height:36px;
   border:none;
   border-radius:10px;
   background:var(--bg3);
@@ -319,17 +296,17 @@ main{
 
 .modal-tabs{
   display:flex;
-  gap:8px;
-  padding:16px;
+  gap:10px;
+  padding:18px;
   border-bottom:1px solid var(--border);
 }
 
 .modal-tab{
-  padding:8px 14px;
   border:none;
-  border-radius:8px;
   background:var(--bg3);
   color:white;
+  padding:10px 15px;
+  border-radius:10px;
   cursor:pointer;
   font-weight:700;
 }
@@ -341,8 +318,8 @@ main{
 
 .modal-body{
   padding:20px;
-  max-height:60vh;
   overflow-y:auto;
+  max-height:70vh;
 }
 
 .resource-list{
@@ -352,14 +329,14 @@ main{
 }
 
 .resource-item{
+  background:var(--bg3);
+  border-radius:12px;
+  padding:14px;
   display:flex;
   align-items:center;
   gap:12px;
-  padding:14px;
-  background:var(--bg3);
-  border-radius:12px;
   cursor:pointer;
-  transition:.2s;
+  transition:0.2s;
 }
 
 .resource-item:hover{
@@ -370,47 +347,34 @@ main{
   flex:1;
 }
 
-/* VIDEO PLAYER */
-
-.video-player-wrap{
+.player-wrap{
   margin-top:18px;
   border-radius:18px;
   overflow:hidden;
+  display:none;
   background:black;
-  border:1px solid rgba(255,255,255,0.08);
 }
 
-.video-player{
+.player-wrap iframe{
   width:100%;
-  height:420px;
+  height:430px;
   border:none;
-}
-
-/* LOADING */
-
-.loading-screen{
-  text-align:center;
-  padding:60px;
 }
 
 /* MOBILE */
 
-@media(max-width:600px){
-
-  .header-stats{
-    display:none;
-  }
+@media(max-width:700px){
 
   .chapters-grid{
     grid-template-columns:1fr;
   }
 
-  .modal{
-    max-height:95vh;
+  .header-stats{
+    display:none;
   }
 
-  .video-player{
-    height:220px;
+  .player-wrap iframe{
+    height:230px;
   }
 
 }
@@ -420,46 +384,54 @@ main{
 
 <body>
 
+<!-- HEADER -->
+
 <header>
+
   <div class="header-inner">
 
     <div class="logo">
-      <span class="logo-icon">🎯</span>
+
+      <div class="logo-icon">🎯</div>
 
       <div>
         <div class="logo-title">Yakeen NEET</div>
         <div class="logo-sub">Gujarati 2026</div>
       </div>
+
     </div>
 
     <div class="header-stats" id="headerStats"></div>
 
   </div>
+
 </header>
+
+<!-- SUBJECT NAV -->
 
 <nav class="subject-nav" id="subjectNav"></nav>
 
+<!-- SEARCH -->
+
 <div class="search-wrap">
+
   <div class="search-box">
 
     <span>🔍</span>
 
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Chapter શોધો..."
-    >
+    <input type="text" id="searchInput" placeholder="Chapter શોધો...">
 
     <button class="clear-btn" id="clearSearch">✕</button>
 
   </div>
+
 </div>
+
+<!-- MAIN -->
 
 <main id="mainContent">
 
-  <div class="loading-screen">
-    Loading...
-  </div>
+  <h2>Loading...</h2>
 
 </main>
 
@@ -487,69 +459,103 @@ main{
 
 <script>
 
-/* =========================================
-   DATA.JSON FETCH
-========================================= */
-
-let allData = {};
+/* =========================
+   SUBJECT CONFIG
+========================= */
 
 const SUBJECTS = {
-  Physics:{emoji:'⚡',color:'#38bdf8',bg:'rgba(56,189,248,0.1)'},
-  Chemistry:{emoji:'🧪',color:'#f472b6',bg:'rgba(244,114,182,0.1)'},
-  Botany:{emoji:'🌿',color:'#4ade80',bg:'rgba(74,222,128,0.1)'},
-  Zoology:{emoji:'🐾',color:'#fb923c',bg:'rgba(251,146,60,0.1)'},
+
+  Physics:{
+    emoji:'⚡',
+    color:'#38bdf8',
+    bg:'rgba(56,189,248,0.1)'
+  },
+
+  Chemistry:{
+    emoji:'🧪',
+    color:'#f472b6',
+    bg:'rgba(244,114,182,0.1)'
+  },
+
+  Botany:{
+    emoji:'🌿',
+    color:'#4ade80',
+    bg:'rgba(74,222,128,0.1)'
+  },
+
+  Zoology:{
+    emoji:'🐾',
+    color:'#fb923c',
+    bg:'rgba(251,146,60,0.1)'
+  }
+
 };
 
-const TAB_CONFIG = [
+const TABS = [
+
   {key:'videos',label:'Videos'},
   {key:'notes',label:'Notes'},
   {key:'dppNotes',label:'DPP Notes'},
-  {key:'dppVideos',label:'DPP Videos'},
+  {key:'dppVideos',label:'DPP Videos'}
+
 ];
 
+let allData = {};
 let activeSubject = 'Physics';
 
-/* INIT */
+/* =========================
+   LOAD DATA.JSON
+========================= */
 
 async function init(){
 
   try{
 
     const res = await fetch('data.json');
+
     allData = await res.json();
 
     buildStats();
+
     buildNav();
+
     renderSubject(activeSubject);
+
     setupSearch();
 
-  }catch(err){
+  }catch(e){
 
     document.getElementById('mainContent').innerHTML =
-    '<h2 style="color:red">data.json load failed</h2>';
+    '<h2 style="color:red">❌ data.json load failed</h2>';
 
   }
 
 }
 
-/* STATS */
+/* =========================
+   STATS
+========================= */
 
 function buildStats(){
 
-  let totalChapters = 0;
+  let total = 0;
 
-  Object.values(allData).forEach(ch=>{
-    totalChapters += ch.length;
+  Object.values(allData).forEach(v=>{
+    total += v.length;
   });
 
   document.getElementById('headerStats').innerHTML =
   `
-    <div class="stat-pill">📚 ${totalChapters} Chapters</div>
+    <div class="stat-pill">
+      📚 ${total} Chapters
+    </div>
   `;
 
 }
 
-/* NAV */
+/* =========================
+   NAVIGATION
+========================= */
 
 function buildNav(){
 
@@ -558,8 +564,6 @@ function buildNav(){
   nav.innerHTML = '';
 
   Object.entries(SUBJECTS).forEach(([name,cfg])=>{
-
-    const count = (allData[name] || []).length;
 
     const btn = document.createElement('button');
 
@@ -571,9 +575,7 @@ function buildNav(){
 
     btn.innerHTML =
     `
-      <span>${cfg.emoji}</span>
-      ${name}
-      <span class="s-count">${count}</span>
+      ${cfg.emoji} ${name}
     `;
 
     btn.onclick = ()=>{
@@ -595,7 +597,9 @@ function buildNav(){
 
 }
 
-/* SUBJECT RENDER */
+/* =========================
+   SUBJECT PAGE
+========================= */
 
 function renderSubject(subject){
 
@@ -609,17 +613,19 @@ function renderSubject(subject){
   `
     <div class="subject-header">
 
-      <div class="subject-header-icon"
+      <div class="subject-icon"
       style="background:${cfg.bg}">
-      ${cfg.emoji}
+        ${cfg.emoji}
       </div>
 
-      <div class="subject-header-text">
+      <div>
         <h2 style="color:${cfg.color}">
           ${subject}
         </h2>
 
-        <p>${chapters.length} Chapters</p>
+        <p>
+          ${chapters.length} Chapters
+        </p>
       </div>
 
     </div>
@@ -644,17 +650,21 @@ function renderSubject(subject){
       <div class="chapter-badges">
 
         <span class="badge videos">
-        ▶️ ${ch.videos.length} Videos
+          ▶️ ${ch.videos.length}
         </span>
 
         <span class="badge notes">
-        📄 ${ch.notes.length} Notes
+          📄 ${ch.notes.length}
+        </span>
+
+        <span class="badge dpp">
+          📝 ${ch.dppNotes.length}
         </span>
 
       </div>
     `;
 
-    card.onclick = ()=> openModal(ch);
+    card.onclick = ()=>openModal(ch);
 
     grid.appendChild(card);
 
@@ -662,7 +672,9 @@ function renderSubject(subject){
 
 }
 
-/* SEARCH */
+/* =========================
+   SEARCH
+========================= */
 
 function setupSearch(){
 
@@ -673,13 +685,18 @@ function setupSearch(){
     const q = input.value.toLowerCase();
 
     if(!q){
+
       renderSubject(activeSubject);
+
       return;
+
     }
 
     const chapters =
       (allData[activeSubject] || [])
-      .filter(ch=>ch.name.toLowerCase().includes(q));
+      .filter(ch=>
+        ch.name.toLowerCase().includes(q)
+      );
 
     const main = document.getElementById('mainContent');
 
@@ -698,7 +715,9 @@ function setupSearch(){
 
       card.innerHTML =
       `
-      <div class="chapter-name">${ch.name}</div>
+        <div class="chapter-name">
+          ${ch.name}
+        </div>
       `;
 
       card.onclick = ()=>openModal(ch);
@@ -711,34 +730,26 @@ function setupSearch(){
 
 }
 
-/* MODAL */
-
-document.getElementById('modalClose')
-.onclick = closeModal;
-
-document.getElementById('modalOverlay')
-.onclick = function(e){
-
-  if(e.target.id === 'modalOverlay'){
-    closeModal();
-  }
-
-};
+/* =========================
+   MODAL
+========================= */
 
 function openModal(chapter){
 
-  document.getElementById('modalTitle')
-  .innerText = chapter.name;
+  document.getElementById('modalTitle').innerText =
+  chapter.name;
 
   const tabs = document.getElementById('modalTabs');
 
   tabs.innerHTML = '';
 
-  TAB_CONFIG.forEach(tab=>{
+  TABS.forEach((tab,index)=>{
 
     const btn = document.createElement('button');
 
-    btn.className='modal-tab';
+    btn.className =
+      'modal-tab' +
+      (index===0 ? ' active':'');
 
     btn.innerText = tab.label;
 
@@ -749,7 +760,7 @@ function openModal(chapter){
 
       btn.classList.add('active');
 
-      renderModal(chapter,tab.key);
+      renderTab(chapter,tab.key);
 
     };
 
@@ -757,16 +768,14 @@ function openModal(chapter){
 
   });
 
-  tabs.firstChild.classList.add('active');
-
-  renderModal(chapter,'videos');
+  renderTab(chapter,'videos');
 
   document.getElementById('modalOverlay')
   .style.display='flex';
 
 }
 
-function renderModal(chapter,key){
+function renderTab(chapter,key){
 
   const body = document.getElementById('modalBody');
 
@@ -784,21 +793,22 @@ function renderModal(chapter,key){
   body.innerHTML =
   `
     <div class="resource-list"></div>
-    <div class="video-player-wrap" id="playerWrap" style="display:none">
+
+    <div class="player-wrap" id="playerWrap">
+
       <iframe
-        class="video-player"
         id="videoFrame"
         allowfullscreen
-        allow="encrypted-media"
-        sandbox="allow-scripts allow-same-origin allow-presentation"
-        referrerpolicy="no-referrer">
-      </iframe>
+        allow="autoplay; encrypted-media"
+        referrerpolicy="no-referrer"
+      ></iframe>
+
     </div>
   `;
 
   const list = body.querySelector('.resource-list');
 
-  items.forEach((item,i)=>{
+  items.forEach((item,index)=>{
 
     const div = document.createElement('div');
 
@@ -806,11 +816,15 @@ function renderModal(chapter,key){
 
     div.innerHTML =
     `
-      <span>${i+1}</span>
+      <span>${index+1}</span>
+
       <span>▶️</span>
+
       <span class="r-title">
-      ${item.title}
+        ${item.title}
       </span>
+
+      <span>↗</span>
     `;
 
     div.onclick = ()=>{
@@ -829,7 +843,9 @@ function renderModal(chapter,key){
 
 }
 
-/* VIDEO PLAYER PROTECTION */
+/* =========================
+   PROTECTED PLAYER
+========================= */
 
 function openProtectedPlayer(url){
 
@@ -839,18 +855,17 @@ function openProtectedPlayer(url){
 
   wrap.style.display='block';
 
-  // base64 encode
-  const encoded = btoa(url);
+  const realUrl = atob(btoa(url));
 
-  // decode internally
-  const realUrl = atob(encoded);
-
-  // iframe player
-  frame.src = "https://iframe.mediadelivery.net/play/" + btoa(realUrl);
+  frame.src =
+  "https://iframe.mediadelivery.net/play/" +
+  btoa(realUrl);
 
 }
 
-/* CLOSE */
+/* =========================
+   CLOSE MODAL
+========================= */
 
 function closeModal(){
 
@@ -865,21 +880,40 @@ function closeModal(){
 
 }
 
-document.addEventListener('contextmenu',e=>e.preventDefault());
+document.getElementById('modalClose')
+.onclick = closeModal;
+
+document.getElementById('modalOverlay')
+.onclick = function(e){
+
+  if(e.target.id==='modalOverlay'){
+    closeModal();
+  }
+
+};
+
+/* =========================
+   PROTECTION
+========================= */
+
+document.addEventListener('contextmenu',
+e=>e.preventDefault());
 
 document.addEventListener('keydown',function(e){
 
   if(
-    e.key === 'F12' ||
-    (e.ctrlKey && e.shiftKey && e.key === 'I') ||
-    (e.ctrlKey && e.key === 'u')
+    e.key==='F12' ||
+    (e.ctrlKey && e.shiftKey && e.key==='I') ||
+    (e.ctrlKey && e.key==='u')
   ){
     e.preventDefault();
   }
 
 });
 
-/* START */
+/* =========================
+   START
+========================= */
 
 init();
 
