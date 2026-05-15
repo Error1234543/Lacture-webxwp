@@ -846,7 +846,7 @@ function openProtectedPlayer(url){
   const realUrl = atob(encoded);
 
   // iframe player
-  frame.src = realUrl;
+  frame.src = "https://iframe.mediadelivery.net/play/" + btoa(realUrl);
 
 }
 
