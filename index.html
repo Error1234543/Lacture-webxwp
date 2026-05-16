@@ -1,661 +1,81 @@
 <!DOCTYPE html>
 <html lang="gu">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<title>Yakeen NEET Gujarati 2026</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet">
-
-<style>
-/* =========================================
-   CORE THEME & TELEGRAM APP VIEW UI
-   ========================================= */
-:root{
-  --bg:#0d0f1a;
-  --bg2:#13172b;
-  --bg3:#1a1f38;
-  --text:#ffffff;
-  --muted:#9aa4c7;
-  --border:rgba(255,255,255,0.08);
-
-  --physics:#38bdf8;
-  --chem:#f472b6;
-  --botany:#4ade80;
-  --zoo:#fb923c;
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Baloo 2','Noto Sans Gujarati',sans-serif;
-  overflow-x:hidden;
-  user-select: none;
-}
-
-/* STICKY TOP HEADER */
-header{
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:linear-gradient(135deg,#0d0f1a,#1d1040);
-  border-bottom:1px solid var(--border);
-  padding:16px 20px;
-}
-
-.header-inner{
-  max-width:1300px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.logo{
-  display:flex;
-  gap:12px;
-  align-items:center;
-}
-
-.logo-icon{ font-size:30px; }
-.logo-title{
-  font-size:22px;
-  font-weight:800;
-  background:linear-gradient(90deg,#38bdf8,#818cf8);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-.logo-sub{ font-size:12px; color:var(--muted); }
-
-.header-stats{ display:flex; gap:12px; }
-.stat-pill{
-  background:var(--bg3);
-  padding:7px 14px;
-  border-radius:999px;
-  font-size:13px;
-  border:1px solid var(--border);
-}
-
-/* SUBJECT NAVIGATION BAR */
-.subject-nav{
-  display:flex;
-  overflow-x:auto;
-  scrollbar-width:none;
-  background:var(--bg2);
-}
-.subject-nav::-webkit-scrollbar{ display:none; }
-
-.subject-btn{
-  background:none;
-  border:none;
-  color:var(--muted);
-  padding:16px 22px;
-  font-size:15px;
-  font-weight:700;
-  cursor:pointer;
-  white-space:nowrap;
-  border-bottom:3px solid transparent;
-}
-.subject-btn.active{
-  color:var(--subject-color);
-  border-bottom-color:var(--subject-color);
-}
-
-/* SEARCH INPUT */
-.search-wrap{
-  max-width:1300px;
-  margin:auto;
-  padding:20px;
-}
-.search-box{
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-radius:999px;
-  padding:0 18px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.search-box input{
-  flex:1;
-  background:none;
-  border:none;
-  outline:none;
-  color:white;
-  padding:14px 0;
-  font-size:15px;
-  font-family:inherit;
-}
-.clear-btn{
-  background:none;
-  border:none;
-  color:white;
-  cursor:pointer;
-  font-size:16px;
-}
-
-/* GRID DASHBOARD */
-main{
-  max-width:1300px;
-  margin:auto;
-  padding:20px;
-}
-.subject-header{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  margin-bottom:24px;
-}
-.subject-icon{
-  width:54px;
-  height:54px;
-  border-radius:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-}
-.subject-header h2{ font-size:25px; font-weight:800; }
-.subject-header p{ color:var(--muted); font-size:13px; }
-
-.chapters-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:18px;
-}
-.chapter-card{
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:18px;
-  cursor:pointer;
-  transition:0.2s;
-}
-.chapter-card:hover{ transform:translateY(-4px); }
-.chapter-name{ font-size:16px; font-weight:700; margin-bottom:14px; }
-.chapter-badges{ display:flex; flex-wrap:wrap; gap:8px; }
-.badge{
-  padding:6px 10px;
-  border-radius:10px;
-  font-size:12px;
-  background:rgba(255,255,255,0.06);
-}
-.videos{ color:#38bdf8; }
-.notes{ color:#4ade80; }
-.dpp{ color:#fb923c; }
-
-/* MINI APP SCREEN-FIT MODAL STRUCTURE */
-.modal-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.85);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
-}
-.modal{
-  width:100%;
-  max-width:750px;
-  height:100%; 
-  max-height:100vh;
-  overflow:hidden;
-  background:var(--bg);
-  display:flex;
-  flex-direction:column;
-}
-@media(min-width: 701px) {
-  .modal {
-    height: 92vh;
-    max-height: 850px;
-    border-radius: 24px;
-    border: 1px solid var(--border);
-  }
-}
-
-.modal-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:16px 20px;
-  background:var(--bg2);
-  border-bottom:1px solid var(--border);
-}
-.modal-header h2{
-  font-size:18px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 80%;
-}
-.modal-close{
-  width:34px;
-  height:34px;
-  border:none;
-  border-radius:50%;
-  background:var(--bg3);
-  color:white;
-  cursor:pointer;
-}
-
-.modal-tabs{
-  display:flex;
-  gap:8px;
-  padding:12px 16px;
-  background:var(--bg2);
-  border-bottom:1px solid var(--border);
-  overflow-x:auto;
-  scrollbar-width: none;
-}
-.modal-tabs::-webkit-scrollbar { display: none; }
-.modal-tab{
-  border:none;
-  background:var(--bg3);
-  color:var(--muted);
-  padding:8px 14px;
-  border-radius:20px;
-  cursor:pointer;
-  font-weight:700;
-  font-size:13px;
-  white-space:nowrap;
-}
-.modal-tab.active{ background:#38bdf8; color:black; }
-
-/* STICKY SCREEN-FIT TOP PLAYER INTERFACE */
-.player-wrap {
-  width: 100%;
-  background: #000;
-  display: none;
-  border-bottom: 2px solid rgba(56,189,248,0.3);
-  position: relative;
-  z-index: 10;
-}
-.video-responsive-container {
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 Aspect Ratio Execution */
-  height: 0;
-  overflow: hidden;
-}
-.video-responsive-container iframe,
-.video-responsive-container video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: #000;
-}
-.player-control-bar {
-  display: flex;
-  background: #111424;
-  padding: 8px 16px;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border);
-}
-.playing-title {
-  font-size: 13px;
-  color: var(--physics);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 70%;
-}
-.close-player-btn {
-  background: #ef4444;
-  color: #fff;
-  border: none;
-  padding: 5px 12px;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-.modal-body-scroll{
-  overflow-y:auto;
-  flex:1;
-  padding: 16px;
-}
-.resource-list{ display:flex; flex-direction:column; gap:10px; }
-.resource-item{
-  background:var(--bg2);
-  border-radius:14px;
-  padding:14px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  cursor:pointer;
-  transition: background 0.2s;
-  border: 1px solid transparent;
-}
-.resource-item:hover{ background: var(--bg3); }
-.resource-item.playing-active {
-  border-color: var(--physics);
-  background: rgba(56,189,248,0.05);
-}
-.r-title{ flex:1; font-size: 14px; }
-
-/* RESPONSIVE SCALE FIXES */
-@media(max-width:700px){
-  .chapters-grid{ grid-template-columns:1fr; }
-  .header-stats{ display:none; }
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yakeen NEET Gujarati 2026</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet"/>
 </head>
-
 <body>
 
-<header>
-  <div class="header-inner">
-    <div class="logo">
-      <div class="logo-icon">🎯</div>
-      <div>
-        <div class="logo-title">Yakeen NEET</div>
-        <div class="logo-sub">Gujarati 2026</div>
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🎯</span>
+        <div>
+          <div class="logo-title">Yakeen NEET</div>
+          <div class="logo-sub">Gujarati 2026</div>
+        </div>
       </div>
+      <div class="header-stats" id="headerStats"></div>
     </div>
-    <div class="header-stats" id="headerStats"></div>
-  </div>
-</header>
+  </header>
 
-<nav class="subject-nav" id="subjectNav"></nav>
+  <!-- SUBJECT TABS -->
+  <nav class="subject-nav" id="subjectNav"></nav>
 
-<div class="search-wrap">
-  <div class="search-box">
-    <span>🔍</span>
-    <input type="text" id="searchInput" placeholder="Chapter શોધો...">
-    <button class="clear-btn" id="clearSearch">✕</button>
-  </div>
-</div>
-
-<main id="mainContent">
-  <h2>Loading Dashboard Systems...</h2>
-</main>
-
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <div class="modal-header">
-      <h2 id="modalTitle"></h2>
-      <button class="modal-close" id="modalClose">✕</button>
-    </div>
-    
-    <div class="modal-tabs" id="modalTabs"></div>
-    
-    <div class="player-wrap" id="playerWrap">
-      <div class="video-responsive-container" id="videoContainer">
-         </div>
-      <div class="player-control-bar">
-        <div class="playing-title" id="playingTitle">Now Buffering Stream Link...</div>
-        <button class="close-player-btn" id="closePlayerBtn">🛑 Close Player</button>
-      </div>
-    </div>
-    
-    <div class="modal-body-scroll">
-      <div id="modalBody"></div>
+  <!-- SEARCH BAR -->
+  <div class="search-wrap">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Chapter શોધો... (e.g. Gravitation, Genetics)" autocomplete="off"/>
+      <button class="clear-btn" id="clearSearch" style="display:none">✕</button>
     </div>
   </div>
-</div>
 
-<script>
-/* =========================================
-   CORE SCRIPTING PLATFORM ENGINE
-   ========================================= */
-const SUBJECTS = {
-  Physics:{ emoji:'⚡', color:'#38bdf8', bg:'rgba(56,189,248,0.1)' },
-  Chemistry:{ emoji:'🧪', color:'#f472b6', bg:'rgba(244,114,182,0.1)' },
-  Botany:{ emoji:'🌿', color:'#4ade80', bg:'rgba(74,222,128,0.1)' },
-  Zoology:{ emoji:'🐾', color:'#fb923c', bg:'rgba(251,146,60,0.1)' }
-};
+  <!-- MAIN CONTENT -->
+  <main id="mainContent">
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loader"></div>
+      <p>Content લોડ થઈ રહ્યો છે...</p>
+    </div>
+  </main>
 
-const TABS = [
-  {key:'videos',label:'Videos'},
-  {key:'notes',label:'Notes'},
-  {key:'dppNotes',label:'DPP Notes'},
-  {key:'dppVideos',label:'DPP Videos'}
-];
+  <!-- CHAPTER MODAL -->
+  <div class="modal-overlay" id="modalOverlay" style="display:none">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle"></h2>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <div class="modal-tabs" id="modalTabs"></div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
 
-let allData = {};
-let activeSubject = 'Physics';
-
-// CORE INITIALIZATION 
-async function init(){
-  try{
-    const res = await fetch('data.json');
-    allData = await res.json();
-    buildStats();
-    buildNav();
-    renderSubject(activeSubject);
-    setupSearch();
-  }catch(e){
-    document.getElementById('mainContent').innerHTML = '<h2 style="color:red">❌ data.json parsing or mapping crash detected</h2>';
-  }
-}
-
-function buildStats(){
-  let total = 0;
-  Object.values(allData).forEach(v=>{ total += v.length; });
-  document.getElementById('headerStats').innerHTML = `<div class="stat-pill">📚 ${total} Chapters</div>`;
-}
-
-function buildNav(){
-  const nav = document.getElementById('subjectNav');
-  nav.innerHTML = '';
-  Object.entries(SUBJECTS).forEach(([name,cfg])=>{
-    const btn = document.createElement('button');
-    btn.className = 'subject-btn' + (name===activeSubject ? ' active':'');
-    btn.style.setProperty('--subject-color',cfg.color);
-    btn.innerHTML = `${cfg.emoji} ${name}`;
-    btn.onclick = ()=>{
-      activeSubject = name;
-      document.querySelectorAll('.subject-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      renderSubject(name);
-    };
-    nav.appendChild(btn);
-  });
-}
-
-function renderSubject(subject){
-  const main = document.getElementById('mainContent');
-  const chapters = allData[subject] || [];
-  const cfg = SUBJECTS[subject];
-
-  main.innerHTML = `
-    <div class="subject-header">
-      <div class="subject-icon" style="background:${cfg.bg}">${cfg.emoji}</div>
-      <div>
-        <h2 style="color:${cfg.color}">${subject}</h2>
-        <p>${chapters.length} Chapters</p>
+  <!-- SECURE VIDEO PLAYER MODAL -->
+  <div class="player-overlay" id="videoPlayerModal" style="display:none">
+    <div class="player-container">
+      <div class="player-header">
+        <span class="player-title" id="playerTitle"></span>
+        <button class="player-close" id="playerClose">✕</button>
+      </div>
+      <div class="player-frame-wrap">
+        <!-- iframe src is set only via JS — never hardcoded here -->
+        <iframe
+          id="playerIframe"
+          src="about:blank"
+          frameborder="0"
+          allowfullscreen
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+          referrerpolicy="no-referrer"
+        ></iframe>
       </div>
     </div>
-    <div class="chapters-grid" id="chaptersGrid"></div>
-  `;
+  </div>
 
-  const grid = document.getElementById('chaptersGrid');
-  chapters.forEach(ch=>{
-    const card = document.createElement('div');
-    card.className = 'chapter-card';
-    card.innerHTML = `
-      <div class="chapter-name">${ch.name}</div>
-      <div class="chapter-badges">
-        <span class="badge videos">▶️ ${ch.videos ? ch.videos.length : 0}</span>
-        <span class="badge notes">📄 ${ch.notes ? ch.notes.length : 0}</span>
-        <span class="badge dpp">📝 ${ch.dppNotes ? ch.dppNotes.length : 0}</span>
-      </div>
-    `;
-    card.onclick = ()=>openModal(ch);
-    grid.appendChild(card);
-  });
-}
-
-function setupSearch(){
-  const input = document.getElementById('searchInput');
-  const clearBtn = document.getElementById('clearSearch');
-
-  input.addEventListener('input',()=>{
-    const q = input.value.toLowerCase();
-    if(!q){ renderSubject(activeSubject); return; }
-
-    const chapters = (allData[activeSubject] || []).filter(ch=>ch.name.toLowerCase().includes(q));
-    const main = document.getElementById('mainContent');
-    main.innerHTML = `<div class="chapters-grid" id="chaptersGrid"></div>`;
-    const grid = document.getElementById('chaptersGrid');
-
-    chapters.forEach(ch=>{
-      const card = document.createElement('div');
-      card.className='chapter-card';
-      card.innerHTML = `<div class="chapter-name">${ch.name}</div>`;
-      card.onclick = ()=>openModal(ch);
-      grid.appendChild(card);
-    });
-  });
-
-  clearBtn.onclick = () => { input.value = ''; renderSubject(activeSubject); };
-}
-
-/* MODAL SYSTEM CONTROLS */
-function openModal(chapter){
-  closeVideoPlayer();
-  document.getElementById('modalTitle').innerText = chapter.name;
-  const tabs = document.getElementById('modalTabs');
-  tabs.innerHTML = '';
-
-  TABS.forEach((tab,index)=>{
-    const btn = document.createElement('button');
-    btn.className = 'modal-tab' + (index===0 ? ' active':'');
-    btn.innerText = tab.label;
-    btn.onclick = () => {
-      document.querySelectorAll('.modal-tab').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      renderTab(chapter,tab.key);
-    };
-    tabs.appendChild(btn);
-  });
-
-  renderTab(chapter,'videos');
-  document.getElementById('modalOverlay').style.display='flex';
-  document.body.style.overflow = 'hidden'; 
-}
-
-/* RENDER DYNAMIC TAB SYSTEM */
-function renderTab(chapter,key){
-  const body = document.getElementById('modalBody');
-  const items = chapter[key] || [];
-
-  if(!items.length){
-    body.innerHTML = '<h3 style="text-align:center;color:var(--muted);padding:40px 20px;">No Content Available In This Segment</h3>';
-    return;
-  }
-
-  body.innerHTML = `<div class="resource-list"></div>`;
-  const list = body.querySelector('.resource-list');
-
-  items.forEach((item,index)=>{
-    const div = document.createElement('div');
-    div.className='resource-item';
-    const isVideo = key.includes('Video') || key === 'videos';
-
-    // Regex cleaning mechanics for a premium look
-    let cleanTitle = item.title
-      .replace(/\|\|\s*Yakeen (Neet|NEET) Gujarati 2026/gi, '')
-      .replace(/:\s*Class Notes\s*\|\|\s*Yakeen.*/gi, '')
-      .trim();
-
-    div.innerHTML = `
-      <span>${index+1}</span>
-      <span>${isVideo ? '▶️' : '📄'}</span>
-      <span class="r-title">${cleanTitle}</span>
-      <span>➔</span>
-    `;
-
-    div.onclick = (e)=>{
-      e.preventDefault();
-      if(!item.url) return;
-
-      if(isVideo){
-        document.querySelectorAll('.resource-item').forEach(el => el.classList.remove('playing-active'));
-        div.classList.add('playing-active');
-        playVideo(item.url, cleanTitle);
-      } else {
-        window.open(item.url, '_blank', 'noopener,noreferrer');
-      }
-    };
-
-    list.appendChild(div);
-  });
-}
-
-/* ADVANCED ZERO-LAG STREAM INJECTION PIPELINE */
-function playVideo(url, title){
-  const wrap = document.getElementById('playerWrap');
-  const container = document.getElementById('videoContainer');
-  const titleDisplay = document.getElementById('playingTitle');
-  
-  titleDisplay.innerText = `Playing: ${title}`;
-  wrap.style.display = 'block';
-  container.innerHTML = ''; 
-
-  // Fast acceleration setup
-  if(url.includes('iframe') || url.includes('embed') || url.includes('.html') || url.startsWith('http://') || url.startsWith('https://') && !url.includes('.mp4')){
-    const iframe = document.createElement('iframe');
-    iframe.src = url;
-    iframe.allow = "autoplay; encrypted-media; fullscreen";
-    iframe.allowFullscreen = true;
-    container.appendChild(iframe);
-  } else {
-    const video = document.createElement('video');
-    video.src = url;
-    video.controls = true;
-    video.autoplay = true;
-    video.preload = "auto"; 
-    video.controlsList = "nodownload noplaybackrate";
-    video.setAttribute('disablepictureinpicture', 'true');
-    container.appendChild(video);
-  }
-}
-
-function closeVideoPlayer(){
-  const wrap = document.getElementById('playerWrap');
-  const container = document.getElementById('videoContainer');
-  if(container) container.innerHTML = ''; 
-  if(wrap) wrap.style.display = 'none';
-  document.querySelectorAll('.resource-item').forEach(el => el.classList.remove('playing-active'));
-}
-
-document.getElementById('closePlayerBtn').onclick = closeVideoPlayer;
-
-function closeModal(){
-  closeVideoPlayer();
-  document.getElementById('modalOverlay').style.display='none';
-  document.body.style.overflow = '';
-}
-
-document.getElementById('modalClose').onclick = closeModal;
-document.getElementById('modalOverlay').onclick = function(e){
-  if(e.target.id === 'modalOverlay'){ closeModal(); }
-};
-
-/* SOURCE DEFIANCE SYSTEMS */
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.addEventListener('keydown', function(e){
-  if(e.key==='F12' || (e.ctrlKey && e.shiftKey && e.key==='I') || (e.ctrlKey && e.key==='u') || (e.ctrlKey && e.key==='s')){
-    e.preventDefault();
-  }
-});
-
-// START EXECUTION
-init();
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
