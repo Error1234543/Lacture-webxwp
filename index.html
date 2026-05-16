@@ -1,81 +1,374 @@
 <!DOCTYPE html>
-<html lang="gu">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Yakeen NEET Gujarati 2026</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>PW Batches | JEE NEET GUJARATI</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+
+    :root{
+      --accent:#16a34a;
+      --accent2:#15803d;
+      --dark:#0f172a;
+      --light:#f8fafc;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--light);
+      color:var(--dark);
+      -webkit-user-select:none;
+      user-select:none;
+    }
+
+    /* Navbar */
+
+    .navbar{
+      width:100%;
+      padding:15px 5%;
+      background:white;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:0 4px 10px rgba(0,0,0,0.08);
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:1.3rem;
+      font-weight:800;
+      color:var(--accent);
+    }
+
+    .logo img{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      object-fit:cover;
+    }
+
+    .nav-btns{
+      display:flex;
+      gap:10px;
+    }
+
+    .btn{
+      background:var(--accent);
+      color:white;
+      text-decoration:none;
+      padding:9px 16px;
+      border-radius:10px;
+      font-size:0.85rem;
+      font-weight:700;
+      transition:0.3s;
+    }
+
+    .btn:hover{
+      transform:scale(1.05);
+      background:var(--accent2);
+    }
+
+    /* Banner */
+
+    .banner{
+      background:linear-gradient(135deg,#16a34a,#22c55e);
+      color:white;
+      text-align:center;
+      padding:60px 20px;
+      border-radius:0 0 35px 35px;
+    }
+
+    .banner h1{
+      font-size:2.2rem;
+      margin-bottom:12px;
+    }
+
+    .banner p{
+      font-size:1rem;
+      line-height:1.7;
+      opacity:0.95;
+    }
+
+    /* Container */
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+      padding:40px 5%;
+    }
+
+    .section-title{
+      font-size:1.8rem;
+      margin-bottom:25px;
+      font-weight:800;
+      color:var(--accent2);
+      text-align:center;
+    }
+
+    /* Grid */
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:25px;
+    }
+
+    /* Card */
+
+    .card{
+      background:white;
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:0 5px 18px rgba(0,0,0,0.08);
+      transition:0.3s;
+      border:1px solid #dcfce7;
+      -webkit-touch-callout:none;
+    }
+
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 12px 25px rgba(0,0,0,0.12);
+    }
+
+    .card img{
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      pointer-events:none;
+      -webkit-user-drag:none;
+    }
+
+    .card-content{
+      padding:18px;
+      text-align:center;
+    }
+
+    .batch-name{
+      font-size:1.2rem;
+      font-weight:800;
+      margin-bottom:10px;
+      color:#166534;
+    }
+
+    .batch-desc{
+      font-size:0.92rem;
+      color:#475569;
+      margin-bottom:18px;
+      line-height:1.6;
+    }
+
+    .study-btn{
+      display:inline-block;
+      text-decoration:none;
+      background:var(--accent);
+      color:white;
+      padding:12px 22px;
+      border-radius:12px;
+      font-weight:700;
+      transition:0.3s;
+      cursor:pointer;
+      border:none;
+      outline:none;
+      -webkit-touch-callout:none;
+    }
+
+    .study-btn:hover{
+      background:var(--accent2);
+      transform:scale(1.05);
+    }
+
+    /* Footer */
+
+    .footer-box{
+      margin:40px 5%;
+      padding:25px;
+      border-radius:22px;
+      background:linear-gradient(135deg,#166534,#15803d);
+      color:white;
+      text-align:center;
+      line-height:1.8;
+      box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    @media(max-width:700px){
+
+      .navbar{
+        flex-direction:column;
+        gap:12px;
+      }
+
+      .banner h1{
+        font-size:1.8rem;
+      }
+
+    }
+
+  </style>
+
 </head>
+
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="header-inner">
-      <div class="logo">
-        <span class="logo-icon">🎯</span>
-        <div>
-          <div class="logo-title">Yakeen NEET</div>
-          <div class="logo-sub">Gujarati 2026</div>
+  <!-- Navbar -->
+
+  <nav class="navbar">
+
+    <div class="logo">
+      <img src="https://i.ibb.co/Q152gXX/x.jpg" draggable="false">
+      JEE NEET GUJ
+    </div>
+
+    <div class="nav-btns">
+
+      <a href="https://t.me/+NGUSfa7ns8c4OTll" class="btn">TELEGRAM</a>
+      <a href="https://t.me/xdsonic" class="btn">CONTACT</a>
+
+    </div>
+
+  </nav>
+
+  <!-- Banner -->
+
+  <section class="banner">
+
+    <h1>PW JEE • NEET Gujarati Batches</h1>
+
+    <p>
+      Start Your Preparation Today 🚀 <br>
+      ટેસ્ટ આપો • રેન્ક વધારો • ટોપ કરો
+    </p>
+
+  </section>
+
+  <!-- Main -->
+
+  <div class="container">
+
+    <h2 class="section-title">Premium Study Batches</h2>
+
+    <div class="grid">
+
+      <!-- ── Mission Batch ── -->
+      <div class="card">
+
+        <img src="https://i.ibb.co/Y4x5zYCP/x.jpg" draggable="false">
+
+        <div class="card-content">
+          <div class="batch-name">Mission 100 NEET Gujarati 2026</div>
+          <div class="batch-desc">Full JEE & NEET Gujarati Batch with Notes, Tests & Lectures.</div>
+
+          <!-- data-p = btoa('mission/mission.html') -->
+          <button class="study-btn" data-p="bWlzc2lvbi9taXNzaW9uLmh0bWw=">
+            STUDY NOW
+          </button>
         </div>
+
       </div>
-      <div class="header-stats" id="headerStats"></div>
-    </div>
-  </header>
 
-  <!-- SUBJECT TABS -->
-  <nav class="subject-nav" id="subjectNav"></nav>
+      <!-- ── Yakeen Batch ── -->
+      <div class="card">
 
-  <!-- SEARCH BAR -->
-  <div class="search-wrap">
-    <div class="search-box">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="searchInput" placeholder="Chapter શોધો... (e.g. Gravitation, Genetics)" autocomplete="off"/>
-      <button class="clear-btn" id="clearSearch" style="display:none">✕</button>
+        <img src="https://i.ibb.co/5Xcyz20M/x.jpg" draggable="false">
+
+        <div class="card-content">
+          <div class="batch-name">Yakeen NEET Gujarati 2026</div>
+          <div class="batch-desc">Complete NEET Gujarati Batch with Full Lectures, Notes, DPP & Tests.</div>
+
+          <!-- data-p = btoa('yakeen/yakeen.html') -->
+          <button class="study-btn" data-p="eWFrZWVuL3lha2Vlbi5odG1s">
+            STUDY NOW
+          </button>
+        </div>
+
+      </div>
+
+      <!--
+        ═══════════════════════════════════════
+        NAYI BATCH ADD KARNE KA TARIKA:
+        ═══════════════════════════════════════
+        1. Neeche card copy karo
+        2. data-p mein ye value daalo:
+           Browser console mein type karo:
+           btoa('foldername/filename.html')
+           Aaya hua result data-p mein paste karo
+        ═══════════════════════════════════════
+      -->
+
     </div>
+
   </div>
 
-  <!-- MAIN CONTENT -->
-  <main id="mainContent">
-    <div class="loading-screen" id="loadingScreen">
-      <div class="loader"></div>
-      <p>Content લોડ થઈ રહ્યો છે...</p>
-    </div>
-  </main>
+  <!-- Footer -->
 
-  <!-- CHAPTER MODAL -->
-  <div class="modal-overlay" id="modalOverlay" style="display:none">
-    <div class="modal" id="modal">
-      <div class="modal-header">
-        <h2 id="modalTitle"></h2>
-        <button class="modal-close" id="modalClose">✕</button>
-      </div>
-      <div class="modal-tabs" id="modalTabs"></div>
-      <div class="modal-body" id="modalBody"></div>
-    </div>
+  <div class="footer-box">
+    <h2>JEE NEET GUJARATI</h2>
+    <p>
+      📚 Best Gujarati Learning Platform <br>
+      🚀 Daily Study Material & Tests <br>
+      💚 Powered By PW Batches
+    </p>
   </div>
 
-  <!-- SECURE VIDEO PLAYER MODAL -->
-  <div class="player-overlay" id="videoPlayerModal" style="display:none">
-    <div class="player-container">
-      <div class="player-header">
-        <span class="player-title" id="playerTitle"></span>
-        <button class="player-close" id="playerClose">✕</button>
-      </div>
-      <div class="player-frame-wrap">
-        <!-- iframe src is set only via JS — never hardcoded here -->
-        <iframe
-          id="playerIframe"
-          src="about:blank"
-          frameborder="0"
-          allowfullscreen
-          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-          referrerpolicy="no-referrer"
-        ></iframe>
-      </div>
-    </div>
-  </div>
+  <script>
 
-  <script src="script.js"></script>
+    // ── BATCH NAVIGATION (URL Hidden) ───────
+    // Buttons mein href nahi, data-p attribute mein btoa() encoded path hai
+    // Click par runtime decode hota hai — inspect mein plain URL nahi dikhti
+
+    document.querySelectorAll('.study-btn[data-p]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        try {
+          const url = atob(btn.getAttribute('data-p'));
+          const a = document.createElement('a');
+          a.href = url;
+          a.style.display = 'none';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch(e) {}
+      });
+    });
+
+    // ── ANTI LEAK ───────────────────────────
+
+    // Right-click disable
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // Text select disable
+    document.addEventListener('selectstart', e => e.preventDefault());
+
+    // Drag disable
+    document.addEventListener('dragstart', e => e.preventDefault());
+
+    // Image long-press save disable (iOS/Android)
+    document.querySelectorAll('img').forEach(img => {
+      img.addEventListener('touchstart', e => e.preventDefault(), { passive: false });
+    });
+
+    // Keyboard shortcuts block (Ctrl+U, Ctrl+S, F12)
+    document.addEventListener('keydown', e => {
+      if (
+        (e.ctrlKey && ['u','s','U','S'].includes(e.key)) ||
+        e.key === 'F12'
+      ) e.preventDefault();
+    });
+
+  </script>
+
 </body>
 </html>
