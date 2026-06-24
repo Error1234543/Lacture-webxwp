@@ -1,34 +1,25 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sonic Hub</title>
-
   <meta name="referrer" content="no-referrer"/>
   <meta name="robots" content="noindex, nofollow"/>
-
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #f8f9fa;
-      --surface: #ffffff;
-      --border: #e3e6ea;
-      --text: #0f1111;
-      --muted: #565959;
-      --orange: #ff6b00;
-      --orange-d: #cc5500;
-      --orange-l: #fff3e8;
-      --blue: #1a73e8;
-      --blue-l: #e8f0fe;
-      --green: #0a7e07;
-      --green-l: #e6f4ea;
+      --bg: #f8f9fa; --surface: #ffffff; --border: #e3e6ea;
+      --text: #0f1111; --muted: #565959;
+      --orange: #ff6b00; --orange-d: #cc5500; --orange-l: #fff3e8;
+      --blue: #1a73e8; --blue-l: #e8f0fe;
+      --green: #0a7e07; --green-l: #e6f4ea;
       --radius: 10px;
     }
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); }
 
-    /* ── HEADER ── */
     header { background: #0f1111; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
     .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; gap: 14px; height: 58px; }
     .logo { display: flex; align-items: center; gap: 9px; text-decoration: none; flex-shrink: 0; }
@@ -37,96 +28,47 @@
     .logo-text { color: #fff; font-size: 19px; font-weight: 800; }
     .logo-text span { color: var(--orange); }
     .header-btns { margin-left: auto; display: flex; gap: 8px; }
-    .hbtn {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 7px 13px; border-radius: 6px;
-      font-size: 13px; font-weight: 600;
-      text-decoration: none; border: none; cursor: pointer;
-      transition: opacity 0.15s, transform 0.15s; white-space: nowrap;
-    }
+    .hbtn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px; border-radius: 6px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; transition: opacity 0.15s, transform 0.15s; white-space: nowrap; }
     .hbtn:hover { opacity: 0.88; transform: translateY(-1px); }
-    .hbtn img, .nav-inner img { width: 16px; height: 16px; object-fit: contain; vertical-align: middle; }
+    .hbtn img { width: 16px; height: 16px; object-fit: contain; }
     .btn-tg  { background: #229ED9; color: #fff; }
-    .btn-ig  { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color:#fff; }
+    .btn-ig  { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: #fff; }
     .btn-own { background: var(--orange); color: #fff; }
 
-    /* ── NAV ── */
     nav { background: #232f3e; }
     .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 16px; display: flex; gap: 2px; overflow-x: auto; align-items: center; }
     .nav-inner a { color: #fff; font-size: 13px; font-weight: 500; text-decoration: none; padding: 8px 13px; white-space: nowrap; border-radius: 4px; transition: background 0.15s; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
     .nav-inner a:hover { background: rgba(255,255,255,0.12); }
+    .nav-inner img { width: 14px; height: 14px; object-fit: contain; }
 
-    /* ── HERO ── */
     .hero { background: linear-gradient(110deg, #0f1111 0%, #1a2332 100%); padding: 36px 16px 32px; text-align: center; }
     .hero h1 { font-size: clamp(22px,4.5vw,38px); font-weight: 800; color: #fff; line-height: 1.2; }
     .hero h1 span { color: var(--orange); }
     .hero p { color: #8a9bae; font-size: 14px; margin-top: 8px; }
 
-    /* ── CARDS ── */
     .cards-wrap { max-width: 1100px; margin: 32px auto; padding: 0 16px; }
     .cards-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 16px; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: box-shadow 0.2s, transform 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.08); cursor: pointer; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); color: inherit; display: flex; flex-direction: column; transition: box-shadow 0.2s, transform 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.08); cursor: pointer; }
     .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.13); transform: translateY(-2px); }
     .card-top { padding: 18px 18px 10px; display: flex; align-items: center; gap: 12px; }
     .card-ico { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-    .card-ico img { width: 24px; height: 24px; object-fit: contain; }
     .ico-o { background: var(--orange-l); } .ico-b { background: var(--blue-l); } .ico-g { background: var(--green-l); }
     .card-name { font-size: 16px; font-weight: 700; }
     .card-sub  { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; }
     .sub-o { color: var(--orange); } .sub-b { color: var(--blue); } .sub-g { color: var(--green); }
     .card-foot { padding: 12px 18px 16px; margin-top: auto; }
-    .card-btn { display: inline-block; padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 600; color: #fff; text-decoration: none; border: none; cursor: pointer; }
-    .cbtn-o { background: var(--orange); } .cbtn-o:hover { background: var(--orange-d); }
-    .cbtn-b { background: var(--blue); } .cbtn-b:hover { background: #1558b0; }
-    .cbtn-g { background: var(--green); } .cbtn-g:hover { background: #085905; }
+    .card-btn { display: inline-block; padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 600; color: #fff; border: none; cursor: pointer; }
+    .cbtn-o { background: var(--orange); } .cbtn-b { background: var(--blue); } .cbtn-g { background: var(--green); }
 
-    /* ── FOOTER ── */
     footer { background: #0f1111; color: #6a7070; text-align: center; padding: 18px 16px; font-size: 12px; margin-top: 40px; }
     footer a { color: #f0c040; text-decoration: none; margin: 0 8px; cursor: pointer; }
 
-    /* ── FLOATING TG ── */
-    .float-tg { position: fixed; bottom: 22px; right: 18px; z-index: 999; display: flex; align-items: center; gap: 7px; background: #229ED9; color: #fff; padding: 10px 18px; border-radius: 50px; font-size: 13px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 18px rgba(34,158,217,0.45); transition: all 0.2s; }
+    .float-tg { position: fixed; bottom: 22px; right: 18px; z-index: 999; display: flex; align-items: center; gap: 7px; background: #229ED9; color: #fff; padding: 10px 18px; border-radius: 50px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; box-shadow: 0 4px 18px rgba(34,158,217,0.45); transition: all 0.2s; }
     .float-tg:hover { background: #1a7db0; transform: scale(1.04); }
     .float-tg img { width: 16px; height: 16px; object-fit: contain; }
-    .dot { width: 7px; height: 7px; background: #fff; border-radius: 50%; animation: p 1.6s infinite; }
-    @keyframes p { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+    .dot { width: 7px; height: 7px; background: #fff; border-radius: 50%; animation: pp 1.6s infinite; }
+    @keyframes pp { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
 
-    /* ── AD OVERLAY ── */
-    #ad-overlay {
-      display: none;
-      position: fixed; inset: 0; z-index: 9999;
-      background: rgba(0,0,0,0.92);
-      align-items: center; justify-content: center;
-      flex-direction: column;
-    }
-    #ad-overlay.show { display: flex; }
-    .ad-box {
-      background: #1a2332; border-radius: 16px;
-      padding: 32px 28px; max-width: 420px; width: 92%;
-      text-align: center; box-shadow: 0 8px 40px rgba(0,0,0,0.6);
-      border: 1px solid #2a3f55;
-    }
-    .ad-box h2 { color: #fff; font-size: 20px; margin-bottom: 8px; }
-    .ad-box p  { color: #8a9bae; font-size: 13px; margin-bottom: 22px; }
-    .ad-timer-ring { width: 80px; height: 80px; margin: 0 auto 18px; position: relative; }
-    .ad-timer-ring svg { transform: rotate(-90deg); }
-    .ad-timer-ring circle { fill: none; stroke-width: 6; }
-    .ring-bg    { stroke: #2a3f55; }
-    .ring-fill  { stroke: var(--orange); stroke-dasharray: 220; stroke-dashoffset: 220; transition: stroke-dashoffset 1s linear; stroke-linecap: round; }
-    .ad-count { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 22px; font-weight: 800; color: #fff; }
-    .ad-skip {
-      display: inline-block; margin-top: 10px;
-      padding: 10px 28px; border-radius: 8px;
-      background: var(--orange); color: #fff;
-      font-size: 14px; font-weight: 700;
-      border: none; cursor: pointer; opacity: 0;
-      pointer-events: none; transition: opacity 0.4s;
-    }
-    .ad-skip.visible { opacity: 1; pointer-events: all; }
-    .ad-skip:hover { background: var(--orange-d); }
-    .ad-msg { color: #f0c040; font-size: 12px; margin-top: 10px; }
-
-    /* ── SECURITY ── */
     .card, .card-btn, .nav-inner a { -webkit-user-select: none; user-select: none; }
 
     @media(max-width:600px){
@@ -138,131 +80,74 @@
 <body>
 
 <script>
+  // ✅ YAHAN TUMHARE LINKS HAIN — sirf yahan change karo
   const _links = {
-    tg:       atob("aHR0cHM6Ly90Lm1lLytOR1VTZmE3bnM4YzRPVGxs"),
-    ig:       atob("aHR0cHM6Ly93d3cuaW5zdGFncmFtLmNvbS9uZWV0X19ndWphcmF0aT9pZ3NoPU5ESnJlWGh1YUhOellXSms="),
-    contact:  atob("aHR0cHM6Ly90Lm1lL3hkc29uaWM="),
-    pw:       atob("aHR0cHM6Ly9wd3Rlc3R3ZWJzaXRlc29uaWMubmV0bGlmeS5hcHAv"),
-    material: atob("aHR0cDovL2dqc29uaWMubmV0bGlmeS5hcHAv"),
-    test:     atob("aHR0cHM6Ly90ZXN0d2Vic2l0ZXNoaGhland3ananand3anand3anand3.bmV0bGlmeS5hcHAv")
+    tg:       "https://t.me/+NGUSfa7ns8c4OTll",        // Telegram Group
+    ig:       "https://www.instagram.com/neet__gujarati?igsh=NDJreXhuaHNzYWJk", // Instagram
+    contact:  "https://t.me/xdsonic",                   // Contact @xdsonic
+    pw:       "https://pwtestwebsitesonic.netlify.app/", // PW Test Website
+    material: "http://gjsonic.netlify.app/",             // Material Website
+    test:     "https://testwebsiteshhhejwjwjwjwj.netlify.app/" // Test Website
   };
 
-  _links.test = "https://testwebsiteshhhejwjwjwjwj.netlify.app/";
-
-  // ── AD INTERSTITIAL ──
-  let _pendingUrl = null;
-  let _adTimer = null;
-  let _adSeconds = 10;
-
-  function openWithAd(url) {
-    _pendingUrl = url;
-    _adSeconds = 10;
-    const overlay = document.getElementById('ad-overlay');
-    overlay.classList.add('show');
-    document.getElementById('ad-count').textContent = _adSeconds;
-
-    const ring = document.querySelector('.ring-fill');
-    const circumference = 220;
-    ring.style.strokeDashoffset = circumference;
-
-    const skip = document.getElementById('ad-skip');
-    skip.classList.remove('visible');
-    skip.textContent = "Please wait...";
-
-    clearInterval(_adTimer);
-    _adTimer = setInterval(() => {
-      _adSeconds--;
-      document.getElementById('ad-count').textContent = _adSeconds;
-      const progress = (10 - _adSeconds) / 10;
-      ring.style.strokeDashoffset = circumference - (circumference * progress);
-      if (_adSeconds <= 0) {
-        clearInterval(_adTimer);
-        skip.classList.add('visible');
-        skip.textContent = "Open Website →";
-      }
-    }, 1000);
+  function goTo(key) {
+    window.open(_links[key], '_blank', 'noopener,noreferrer');
   }
 
-  function skipAd() {
-    if (_adSeconds > 0) return;
-    clearInterval(_adTimer);
-    document.getElementById('ad-overlay').classList.remove('show');
-    if (_pendingUrl) {
-      window.open(_pendingUrl, '_blank', 'noopener,noreferrer');
-      _pendingUrl = null;
-    }
-  }
-
-  // ── SECURITY ──
   document.addEventListener('contextmenu', e => e.preventDefault());
   document.addEventListener('keydown', e => {
-    if ((e.ctrlKey || e.metaKey) && ['u','s','a'].includes(e.key.toLowerCase())) e.preventDefault();
+    if ((e.ctrlKey || e.metaKey) && ['u','s'].includes(e.key.toLowerCase())) e.preventDefault();
     if (e.key === 'F12') e.preventDefault();
   });
 </script>
 
-<div id="ad-overlay">
-  <div class="ad-box">
-    <h2>⚡ Sonic Hub</h2>
-    <p>Support karo — ek chhota sa wait karo 😊<br>Website kuch seconds mein open hogi</p>
-    <div class="ad-timer-ring">
-      <svg width="80" height="80" viewBox="0 0 80 80">
-        <circle class="ring-bg"   cx="40" cy="40" r="35"/>
-        <circle class="ring-fill" cx="40" cy="40" r="35"/>
-      </svg>
-      <div class="ad-count" id="ad-count">10</div>
-    </div>
-    <button class="ad-skip" id="ad-skip" onclick="skipAd()">Please wait...</button>
-    <div class="ad-msg">🙏 Tumhara support humein motivate karta hai!</div>
-  </div>
-</div>
-
+<!-- HEADER -->
 <header>
   <div class="header-inner">
     <a class="logo" href="#">
       <div class="logo-icon">
-        <img src="https://i.ibb.co/Y4Q7q9gc/x.jpg" alt="ɴᴇᴇᴛ ᴊᴇᴇ ɢᴜᴊᴀʀᴀᴛɪ">
+        <img src="https://i.ibb.co/Y4Q7q9gc/x.jpg" alt="NEET JEE Gujarati">
       </div>
       <div class="logo-text">ɴᴇᴇᴛ ᴊᴇᴇ <span>ɢᴜᴊᴀʀᴀᴛɪ</span></div>
     </a>
     <div class="header-btns">
-      <a class="hbtn btn-tg"  onclick="window.open(_links.tg,'_blank','noopener')" href="#">
+      <button class="hbtn btn-tg" onclick="goTo('tg')">
         <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="TG"> <span>Telegram</span>
-      </a>
-      <a class="hbtn btn-ig"  onclick="window.open(_links.ig,'_blank','noopener')" href="#">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png
-" alt="IG"> <span>Instagram</span>
-      </a>
-      <a class="hbtn btn-own" onclick="window.open(_links.contact,'_blank','noopener')" href="#">
+      </button>
+      <button class="hbtn btn-ig" onclick="goTo('ig')">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="IG"> <span>Instagram</span>
+      </button>
+      <button class="hbtn btn-own" onclick="goTo('contact')">
         <img src="https://cdn-icons-png.flaticon.com/512/2343/2343685.png" alt="Chat"> <span>Contact</span>
-      </a>
+      </button>
     </div>
   </div>
 </header>
 
+<!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a onclick="openWithAd(_links.pw)">⚡ PW Tests</a>
-    <a onclick="openWithAd(_links.test)">🧪 Test Series</a>
-    <a onclick="openWithAd(_links.material)">📚 Material</a>
-    <a onclick="window.open(_links.tg,'_blank','noopener')">
+    <a onclick="goTo('pw')">⚡ PW Tests</a>
+    <a onclick="goTo('test')">🧪 Test Series</a>
+    <a onclick="goTo('material')">📚 Material</a>
+    <a onclick="goTo('tg')">
       <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="TG"> Telegram
     </a>
-    <a onclick="window.open(_links.contact,'_blank','noopener')">
-      <img src="https://cdn-icons-png.flaticon.com/512/2343/2343685.png" alt="Contact"> Contact
-    </a>
+    <a onclick="goTo('contact')">💬 Contact</a>
   </div>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
   <h1>Welcome to <span>Sonic Hub</span></h1>
   <p>Tests · Notes · Material — Sab Ek Jagah 🚀</p>
 </section>
 
+<!-- CARDS -->
 <div class="cards-wrap">
   <div class="cards-grid">
 
-    <div class="card" onclick="openWithAd(_links.pw)">
+    <div class="card" onclick="goTo('pw')">
       <div class="card-top">
         <div class="card-ico ico-o">⚡</div>
         <div>
@@ -271,11 +156,11 @@
         </div>
       </div>
       <div class="card-foot">
-        <button class="card-btn cbtn-o" onclick="event.stopPropagation();openWithAd(_links.pw)">Open Tests →</button>
+        <button class="card-btn cbtn-o" onclick="event.stopPropagation();goTo('pw')">Open Tests →</button>
       </div>
     </div>
 
-    <div class="card" onclick="openWithAd(_links.test)">
+    <div class="card" onclick="goTo('test')">
       <div class="card-top">
         <div class="card-ico ico-b">🧪</div>
         <div>
@@ -284,11 +169,11 @@
         </div>
       </div>
       <div class="card-foot">
-        <button class="card-btn cbtn-b" onclick="event.stopPropagation();openWithAd(_links.test)">Start Test →</button>
+        <button class="card-btn cbtn-b" onclick="event.stopPropagation();goTo('test')">Start Test →</button>
       </div>
     </div>
 
-    <div class="card" onclick="openWithAd(_links.material)">
+    <div class="card" onclick="goTo('material')">
       <div class="card-top">
         <div class="card-ico ico-g">📚</div>
         <div>
@@ -297,24 +182,26 @@
         </div>
       </div>
       <div class="card-foot">
-        <button class="card-btn cbtn-g" onclick="event.stopPropagation();openWithAd(_links.material)">Get Material →</button>
+        <button class="card-btn cbtn-g" onclick="event.stopPropagation();goTo('material')">Get Material →</button>
       </div>
     </div>
 
   </div>
 </div>
 
+<!-- FOOTER -->
 <footer>
   © 2026 Sonic Hub &nbsp;|&nbsp;
-  <a onclick="window.open(_links.tg,'_blank')">Telegram</a>
-  <a onclick="window.open(_links.ig,'_blank')">Instagram</a>
-  <a onclick="window.open(_links.contact,'_blank')">Contact @xdsonic</a>
+  <a onclick="goTo('tg')">Telegram</a>
+  <a onclick="goTo('ig')">Instagram</a>
+  <a onclick="goTo('contact')">Contact @xdsonic</a>
 </footer>
 
-<a class="float-tg" onclick="window.open(_links.tg,'_blank','noopener')" href="#">
+<!-- FLOATING TG -->
+<button class="float-tg" onclick="goTo('tg')">
   <div class="dot"></div>
   <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="TG"> Join Telegram
-</a>
+</button>
 
 </body>
 </html>
